@@ -5,45 +5,32 @@ import java.util.HashMap;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
-import com.lacosdaalegria.intra.dao.EquipeDAO;
-import com.lacosdaalegria.intra.dao.VoluntarioDAO;
+import com.lacosdaalegria.intra.hibernate.model.Voluntario;
 
 public class UserDetail {
 	
-	public Voluntario user;
-	public MaisLacos maisLacos;
-	public HashMap<Integer, Boolean> atividadesAtuais = new HashMap<>();
-	public HashMap<Integer, Boolean> periodoInscritos = new HashMap<>();
-	public int[] serapoio;
+	private Voluntario user;
+	private MaisLacos maisLacos;
+	private HashMap<Integer, Boolean> atividadesAtuais = new HashMap<>();
+	private HashMap<Integer, Boolean> periodoInscritos = new HashMap<>();
+	private int[] serApoio;
 	private boolean faltante;
+	private boolean primeiro_acesso;
 	
 	public Voluntario getUser() {
 		return user;
 	}
-	public boolean setUser(Voluntario user) {
-		
-		VoluntarioDAO dao = new VoluntarioDAO();
-		EquipeDAO equipe = new EquipeDAO();
-		
-		if(dao.login(user)){
-		
-		this.user = dao.acessoVoluntario(user);
-		this.serapoio = equipe.serApoio(this.user.userid); 
-		
-		return true;
-		
-		} else 
-			
-		return false;
+	public void setUser(Voluntario user) {
+		this.user = user;
 	}
 	public MaisLacos getMaisLacos() {
 		return maisLacos;
 	}
-	public int[] isSerapoio() {
-		return serapoio;
+	public int[] getSerApoio() {
+		return serApoio;
 	}
-	public void setSerapoio(int[] serapoio) {
-		this.serapoio = serapoio;
+	public void setSerApoio(int[] serapoio) {
+		this.serApoio = serapoio;
 	}
 	public void setMaisLacos(MaisLacos maisLacos) {
 		this.maisLacos = maisLacos;
@@ -79,6 +66,14 @@ public class UserDetail {
 		this.faltante = faltante;
 	}
 	
-	
+	public int getUserId(HttpSession session){
+		return this.user(session).getUser().getId();		
+	}
+	public boolean isPrimeiro_acesso() {
+		return primeiro_acesso;
+	}
+	public void setPrimeiro_acesso(boolean primeiro_acesso) {
+		this.primeiro_acesso = primeiro_acesso;
+	}
 
 }

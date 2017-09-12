@@ -1,77 +1,50 @@
 package com.lacosdaalegria.intra.controller;
 
-import java.util.HashMap;
-import java.util.Map;
-
 import javax.servlet.http.HttpSession;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 
-import com.lacosdaalegria.intra.dao.AtividadeDAO;
-import com.lacosdaalegria.intra.dao.FeedbackDAO;
-import com.lacosdaalegria.intra.dao.NotificationDAO;
-import com.lacosdaalegria.intra.model.Atividade;
+import com.lacosdaalegria.intra.hibernate.dao.NotificacaoDAO;
+import com.lacosdaalegria.intra.hibernate.dao.RegiaoAdministrativaDAO;
+import com.lacosdaalegria.intra.hibernate.dao.VoluntarioDAO;
+import com.lacosdaalegria.intra.hibernate.model.Atividade;
+import com.lacosdaalegria.intra.hibernate.model.Notificacao;
+import com.lacosdaalegria.intra.model.CodigoAtivacao;
 import com.lacosdaalegria.intra.model.DateHandler;
-import com.lacosdaalegria.intra.model.HashMapAtividade;
-import com.lacosdaalegria.intra.model.Notificacao;
 import com.lacosdaalegria.intra.model.Notificacoes;
 import com.lacosdaalegria.intra.model.UserDetail;
 
 @Controller
 public class NavegationController {
 
-
 	@RequestMapping("area-voluntario")
 	public String voluntario(Model model, HttpSession session) {
 		
+		/*----------------------------------------------------------------------------
+		 * Model comuns a toda request que renderizar uma JSP
+		------------------------------------------------------------------------------*/
+		UserDetail userDetail = new UserDetail();
+		
+		model.addAttribute("voluntario", userDetail.user(session).getUser());
+		model.addAttribute("atividades", Atividade.atividadeAtivas());
+		
+		/*----------------------------------------------------------------------------
+		 * Fim Model comuns a toda request que renderizar uma JSP
+		------------------------------------------------------------------------------*/
 		
 		DateHandler date = new DateHandler();
-		AtividadeDAO ativDao = new AtividadeDAO();
-		UserDetail userDetail = new UserDetail();
-		Atividade atividade = new Atividade();
-		boolean[] lotada = new boolean[20];
-	
-		model.addAttribute("voluntario", userDetail.user(session).getUser());
-		model.addAttribute("maislacos", userDetail.user(session).getMaisLacos());
-		model.addAttribute("ativAtual", userDetail.user(session).getAtividadesAtuais());
-		model.addAttribute("ativsPeriodo", userDetail.user(session).getPeriodoInscritos());
-		model.addAttribute("faltante", userDetail.user(session).isFaltante());
-		model.addAttribute("tags", HashMapAtividade.tags);		
-		model.addAttribute("aberto", date.inscricaoAberta());
-		model.addAttribute("serapoio", userDetail.user(session).serapoio);		
-		model.addAttribute("feeds", Notificacoes.getNotificacoes());		
-		model.addAttribute("Atividade", atividade.listaAtividade());
-		model.addAttribute("todas_Ativs", HashMapAtividade.tags);
+		
+		userDetail.user(session).getUser().atividadeInscritas();
+		
+		model.addAttribute("detail", userDetail.user(session));
+		model.addAttribute("feeds", Notificacoes.getNotificacoes());
+		model.addAttribute("codigoSemana", CodigoAtivacao.codigoAtivacao);
+		
 		model.addAttribute("fase_randomica_acabou", !date.rodadaRandomica());
-		
-		
-		//Logica que levanta a posição do usuario em todas as atividades inscritas
-		//Futuramente deve ser elaborado um metodo no  RegistrosAtivDAO para ficar responsavel por isso
-		if(!date.rodadaRandomica()) {
-			
-			lotada = ativDao.atividadeLotada();
-			
-			model.addAttribute("lotada", lotada);
-			
-			HashMap<Integer, Integer> posicoes = new HashMap<>();
-			
-			for (Map.Entry<Integer, Boolean> entry : userDetail.user(session).getAtividadesAtuais().entrySet()){
-				
-				if(entry.getValue() == true && lotada[entry.getKey()]){
-					
-					posicoes.put(entry.getKey(), ativDao.estaEmFila(entry.getKey(), 
-																	userDetail.user(session).getUser().userid));
-					
-				}
-				
-			}
-			
-			model.addAttribute("posicoes", posicoes);
-			
-		}
+	
+		//model.addAttribute("AtividadesOngs", Atividade.listaAtividadeOngs());
 		
 		session.setAttribute("currentpage", "area-voluntario");
 		
@@ -83,11 +56,13 @@ public class NavegationController {
 	public String novato(Model model,  HttpSession session) {
 		
 		UserDetail userDetail = new UserDetail();
-		
-	
+		VoluntarioDAO dao = new VoluntarioDAO();
 		
 		model.addAttribute("voluntario", userDetail.user(session).getUser());
-		model.addAttribute("quantVolutarios", "956");		
+		model.addAttribute("primeiro_acesso", userDetail.user(session).isPrimeiro_acesso());
+		model.addAttribute("hospitais", Atividade.atividadeAtivas());
+//		model.addAttribute("maislacos", userDetail.user(session).getMaisLacos());
+		model.addAttribute("posicao", dao.posicaoNovato(userDetail.user(session).getUser()));
 		
 		return "newbee-area";
 		
@@ -96,52 +71,104 @@ public class NavegationController {
 	@RequestMapping("profile")
 	public String profile(Model model,  HttpSession session) {
 		
+		/*----------------------------------------------------------------------------
+		 * Model comuns a toda request que renderizar uma JSP
+		------------------------------------------------------------------------------*/
 		UserDetail userDetail = new UserDetail();
-		Atividade atividade = new Atividade();
 		
-		model.addAttribute("voluntario", userDetail.user(session).getUser());	
-		model.addAttribute("Atividade", atividade.listaAtividade());
+		RegiaoAdministrativaDAO raDao = new RegiaoAdministrativaDAO();
+		
+		model.addAttribute("voluntario", userDetail.user(session).getUser());
+		model.addAttribute("atividades", Atividade.atividadeAtivas());
+		model.addAttribute("regioes", raDao.listaRegiaoAdministrativa());
+		
+		/*----------------------------------------------------------------------------
+		 * Fim Model comuns a toda request que renderizar uma JSP
+		------------------------------------------------------------------------------*/
+		
 		session.setAttribute("currentpage", "profile");
-		model.addAttribute("todas_Ativs", HashMapAtividade.tags);
 		
 		return "user-page";
 		
 	}
 	
 	//essa é a alteração
-	@RequestMapping("cadastrarNotif")
-	public String cadastrarNotif() {
+	@RequestMapping("cadastrarNotificacao")
+	public String cadastrarNotif(Model model,  HttpSession session) {
+		
+		/*----------------------------------------------------------------------------
+		 * Model comuns a toda request que renderizar uma JSP
+		------------------------------------------------------------------------------*/
+		UserDetail userDetail = new UserDetail();
+		
+		model.addAttribute("voluntario", userDetail.user(session).getUser());
+		model.addAttribute("atividades", Atividade.atividadeAtivas());
+		
+		/*----------------------------------------------------------------------------
+		 * Fim Model comuns a toda request que renderizar uma JSP
+		------------------------------------------------------------------------------*/
+		
+		session.setAttribute("currentpage", "cadastrarNotificacao");
 
 		return "cadastrar_notif";	
 		
 	}
 	
-	@RequestMapping("insertNotif")
-	public String insertNotif(Notificacao notificacao, HttpSession session) {
+	@RequestMapping("historiaLacos")
+	public String historiaLacos(Model model,  HttpSession session) {
 		
-	
-		
+		/*----------------------------------------------------------------------------
+		 * Model comuns a toda request que renderizar uma JSP
+		------------------------------------------------------------------------------*/
 		UserDetail userDetail = new UserDetail();
 		
-		NotificationDAO dao = new NotificationDAO();
-			
-		dao.adicionaNotificacao(notificacao, userDetail.user(session).getUser().userid);
+		model.addAttribute("voluntario", userDetail.user(session).getUser());
+		model.addAttribute("atividades", Atividade.atividadeAtivas());
 		
-		return "redirect:area-voluntario";
+		/*----------------------------------------------------------------------------
+		 * Fim Model comuns a toda request que renderizar uma JSP
+		------------------------------------------------------------------------------*/
 		
+		session.setAttribute("currentpage", "historiaLacos");
+
+		return "histLacos";
 		
 	}
 	
-	@RequestMapping("feedback")
-	public String feedback(@RequestParam("feedback") String feedback, HttpSession session) {
+	@RequestMapping("comoPossoAjudar")
+	public String comoPossoAjudar(Model model,  HttpSession session) {
 		
+		/*----------------------------------------------------------------------------
+		 * Model comuns a toda request que renderizar uma JSP
+		------------------------------------------------------------------------------*/
+		UserDetail userDetail = new UserDetail();
+		
+		model.addAttribute("voluntario", userDetail.user(session).getUser());
+		model.addAttribute("atividades", Atividade.atividadeAtivas());
+		
+		/*----------------------------------------------------------------------------
+		 * Fim Model comuns a toda request que renderizar uma JSP
+		------------------------------------------------------------------------------*/
+		
+		session.setAttribute("currentpage", "comoPossoAjudar");
+
+		return "comoAjudar";
+		
+	}
 	
+	
+	@RequestMapping("insertNotif")
+	public String insertNotif(Notificacao notificacao, HttpSession session) {
+
+		UserDetail userDetail = new UserDetail();
 		
-		FeedbackDAO dao = new FeedbackDAO();
+		NotificacaoDAO dao = new NotificacaoDAO();
 		
-		dao.adicionaFeedback(feedback);
+		notificacao.setCriador(userDetail.user(session).getUser());
 		
-		return "redirect:"+(String)session.getAttribute("currentpage");
+		dao.addNotificacao(notificacao);
+		
+		return "redirect:area-voluntario";
 		
 		
 	}
@@ -149,17 +176,127 @@ public class NavegationController {
 	@RequestMapping("construcao")
 	public String construcao (Model model, HttpSession session) {
 		
+		/*----------------------------------------------------------------------------
+		 * Model comuns a toda request que renderizar uma JSP
+		------------------------------------------------------------------------------*/
 		UserDetail userDetail = new UserDetail();
 		
-	
-		
 		model.addAttribute("voluntario", userDetail.user(session).getUser());
+		model.addAttribute("atividades", Atividade.atividadeAtivas());
+		
+		/*----------------------------------------------------------------------------
+		 * Fim Model comuns a toda request que renderizar uma JSP
+		------------------------------------------------------------------------------*/
 		
 		session.setAttribute("currentpage", "construcao");
 		
 		return "construcao";
 		
 	}
-
 	
+	@RequestMapping("FAQ")
+	public String faq (Model model, HttpSession session) {
+		
+		/*----------------------------------------------------------------------------
+		 * Model comuns a toda request que renderizar uma JSP
+		------------------------------------------------------------------------------*/
+		UserDetail userDetail = new UserDetail();
+		
+		model.addAttribute("voluntario", userDetail.user(session).getUser());
+		model.addAttribute("atividades", Atividade.atividadeAtivas());
+		
+		/*----------------------------------------------------------------------------
+		 * Fim Model comuns a toda request que renderizar uma JSP
+		------------------------------------------------------------------------------*/
+		
+		session.setAttribute("currentpage", "FAQ");
+		
+		return "faq";
+		
+	}
+	
+	@RequestMapping("AniversariantesDoMes")
+	public String voluntarioNotaDez(Model model,  HttpSession session) {
+		
+		/*----------------------------------------------------------------------------
+		 * Model comuns a toda request que renderizar uma JSP
+		------------------------------------------------------------------------------*/
+		UserDetail userDetail = new UserDetail();
+		
+		model.addAttribute("voluntario", userDetail.user(session).getUser());
+		model.addAttribute("atividades", Atividade.atividadeAtivas());
+		
+		/*----------------------------------------------------------------------------
+		 * Fim Model comuns a toda request que renderizar uma JSP
+		------------------------------------------------------------------------------*/
+		
+		VoluntarioDAO dao = new VoluntarioDAO();
+		
+		model.addAttribute("aniversariantes", dao.aniversariantes());
+		
+		session.setAttribute("currentpage", "AniversariantesDoMes");
+		
+		return "aniversariantes";
+		
+	}
+	
+	@RequestMapping("Contatos")
+	public String contatos(Model model,  HttpSession session) {
+		
+		/*----------------------------------------------------------------------------
+		 * Model comuns a toda request que renderizar uma JSP
+		------------------------------------------------------------------------------*/
+		UserDetail userDetail = new UserDetail();
+		
+		model.addAttribute("voluntario", userDetail.user(session).getUser());
+		model.addAttribute("atividades", Atividade.atividadeAtivas());
+		
+		/*----------------------------------------------------------------------------
+		 * Fim Model comuns a toda request que renderizar uma JSP
+		------------------------------------------------------------------------------*/
+		
+		VoluntarioDAO volDao = new VoluntarioDAO();
+		
+		model.addAttribute("diretores", volDao.listaDiretores());
+		
+		session.setAttribute("currentpage", "Contatos");
+		
+		return "contato";
+		
+	}
+	
+	
+	@RequestMapping("TermoAdesao")
+	public String termoAdesao(HttpSession session, Model model){
+		
+		/*UserDetail userDetail = new UserDetail();
+		
+		model.addAttribute("voluntario", userDetail.user(session).getUser());*/
+		
+		return "termo";
+		
+		
+	}
+	
+	@RequestMapping("LeituraTermo")
+	public String leituraTermo (Model model, HttpSession session) {
+		
+		/*----------------------------------------------------------------------------
+		 * Model comuns a toda request que renderizar uma JSP
+		------------------------------------------------------------------------------*/
+		UserDetail userDetail = new UserDetail();
+		
+		model.addAttribute("voluntario", userDetail.user(session).getUser());
+		model.addAttribute("atividades", Atividade.atividadeAtivas());
+		
+		/*----------------------------------------------------------------------------
+		 * Fim Model comuns a toda request que renderizar uma JSP
+		------------------------------------------------------------------------------*/
+		
+		session.setAttribute("currentpage", "LeituraTermo");
+		
+		return "termo_leitura";
+		
+	}
+
 }

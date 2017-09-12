@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-configuration SYSTEM "http://www.hibernate.org/dtd/hibernate-configuration-3.0.dtd">
+
+<hibernate-configuration>
+   <session-factory>
+       <property name="hibernate.dialect">org.hibernate.dialect.SQLServerDialect</property>
+       <property name="hibernate.connection.driver_class">net.sourceforge.jtds.jdbc.Driver</property>
+       <property name="hibernate.connection.url">jdbc:jtds:sqlserver://localhost:1433/hmp</property>
+       <property name="hibernate.connection.username">desenvol</property>
+       <property name="hibernate.connection.password">desenvol</property>
+       <property name="hibernate.hbm2ddl.auto">update</property>
+       <!--Here we are mapping Pojo class not hbm-->
+     <mapping class="com.lacosdaalegria.intra.hibernate.model.Produto"/>
+     <mapping class="com.lacosdaalegria.intra.hibernate.model.Compra"/>
+     <mapping class="com.lacosdaalegria.intra.hibernate.model.ItemVenda"/>
+     <mapping class="com.lacosdaalegria.intra.hibernate.model.Venda"/>
+     <mapping class="com.lacosdaalegria.intra.hibernate.model.Instituicao"/>
+     <mapping class="com.lacosdaalegria.intra.hibernate.model.Tag"/>
+     <mapping class="com.lacosdaalegria.intra.hibernate.model.AgendaAtividade"/>
+     <mapping class="com.lacosdaalegria.intra.hibernate.model.RegiaoAdministrativa"/>
+     <mapping class="com.lacosdaalegria.intra.hibernate.model.Polo"/>
+     <mapping class="com.lacosdaalegria.intra.hibernate.model.Atividade"/>
+    </session-factory>
+</hibernate-configuration>

@@ -1,12 +1,14 @@
 package com.lacosdaalegria.intra.model;
 
+import com.lacosdaalegria.intra.hibernate.dao.AtividadeDAO;
+
 public class MaisLacos {
 
-	public int total_voluntarios;
-	public int total_novatos;
-	public int atividade_participadas;
-	public int atividades_distintas;
-	public int indicacoes;
+	private Integer total_voluntarios;
+	private Integer total_novatos;
+	private Integer atividade_participadas;
+	private Integer atividades_distintas;
+	private Integer indicacoes;
 	
 	
 	public int getTotal_voluntarios() {
@@ -32,7 +34,9 @@ public class MaisLacos {
 	}
 	public void setAtividades_distintas(int atividades_distintas) {
 		
-		atividades_distintas = HashMapAtividade.tags.size() - atividades_distintas;
+		AtividadeDAO dao = new AtividadeDAO();
+		
+		atividades_distintas = dao.listaAtividades().size() - atividades_distintas;
 		
 		this.atividades_distintas = atividades_distintas;
 	}

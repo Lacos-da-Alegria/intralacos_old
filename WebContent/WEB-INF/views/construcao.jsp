@@ -9,6 +9,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="Intranet do Grupo da Alegria">
     <meta name="author" content="LaÁos da Alegria">
+    <meta name="apple-mobile-web-app-capable" content="yes" />
 
     <title>LaÁos da Alegria</title>
 
@@ -42,51 +43,7 @@
       TOP BAR CONTENT & NOTIFICATIONS
       *********************************************************************************************************************************************************** -->
       <!--header start-->
-      <header class="header black-bg">
-              <div class="sidebar-toggle-box">
-                  <div class="fa fa-bars tooltips" data-placement="right" data-original-title="Menu"></div>
-              </div>
-              
-           		 <c:choose>
-              	  <c:when test="${(voluntario.acesso != 0)}">	
-						<!--logo start-->	
-			            <a href="area-voluntario" class="logo"><b>¡ÅREA DO VOLUNT¡RIO</b></a>
-			            <!--logo end-->            
-                  </c:when>
-                  <c:otherwise>
-			            <!--logo start-->
-			            <a href="area-novato" class="logo"><b>·rea do Novato</b></a>
-			            <!--logo end-->	  
-				  </c:otherwise>
-				  </c:choose>
-				  
-            <div class="nav notify-row" id="top_menu">
-                <!--  notification start -->
-                <ul class="nav top-menu">
-                    <!-- settings start -->
-                    <li class="dropdown tooltips" data-placement="left" data-original-title="Indique Um Amigo">
-                        <a data-toggle="modal" class="dropdown-toggle" href="volunteer-area.html#myModal">
-                            <i class="fa li_megaphone" ></i>                            
-                        </a>
-                        					
-                    </li>
-                    <!-- settings end -->
-                    <!-- inbox dropdown start-->
-                    <li class="dropdown tooltips" data-placement="left" data-original-title="Deixe Seu Feedback">
-                        <a class="dropdown-toggle"  data-toggle="modal"  href="volunteer-area.html#ModalFeedBack">
-                            <i class="fa fa-envelope-o"></i>                            
-						</a>
-                    </li>
-                    <!-- inbox dropdown end -->
-                </ul>
-                <!--  notification end -->
-            </div>
-            <div class="top-menu">
-            	<ul class="nav pull-right top-menu">
-                    <li><a class="logout" href="logout">Logout</a></li>
-            	</ul>
-            </div>
-        </header>
+    	<%@ include file="top_menu.jsp" %> 	
       <!--header end-->
       
       <!-- **********************************************************************************************************************************************************
@@ -109,10 +66,7 @@
       *********************************************************************************************************************************************************** -->
       <!--main content start-->
       <section id="main-content">
-          <section class="wrapper">
-
-                                  
-                    				
+          <section class="wrapper">                               
 					
 					
 					<div class="row">
@@ -196,41 +150,18 @@
 
     <!--script for this page-->
     <script src="assets/js/sparkline-chart.js"></script>    
-	<script src="assets/js/zabuto_calendar.js"></script>	
-	
-		
-	<script type="application/javascript">
-        $(document).ready(function () {
-            $("#date-popover").popover({html: true, trigger: "manual"});
-            $("#date-popover").hide();
-            $("#date-popover").click(function (e) {
-                $(this).hide();
-            });
-        
-            $("#my-calendar").zabuto_calendar({
-                action: function () {
-                    return myDateFunction(this.id, false);
-                },
-                action_nav: function () {
-                    return myNavFunction(this.id);
-                },
-                ajax: {
-                    url: "show_data.php?action=1",
-                    modal: true
-                },
-               
-            });
-        });
-        
-        
-        function myNavFunction(id) {
-            $("#date-popover").hide();
-            var nav = $("#" + id).data("navigation");
-            var to = $("#" + id).data("to");
-            console.log('nav ' + nav + ' to: ' + to.month + '/' + to.year);
-        }
-    </script>
-  
+    
+    <script type="text/javascript">
+		// When ready...
+		window.addEventListener("load",function() {
+			// Set a timeout...
+			setTimeout(function(){
+				// Hide the address bar!
+				window.scrollTo(0, 1);
+			}, 0);
+		});
+	</script>
+
 
   </body>
 </html>

@@ -1,10 +1,13 @@
 package com.lacosdaalegria.intra.interceptor;
 
+import java.util.List;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
 
+import com.lacosdaalegria.intra.hibernate.model.Voluntario;
 import com.lacosdaalegria.intra.model.UserDetail;
 
 public class Interceptor extends HandlerInterceptorAdapter {
@@ -15,10 +18,9 @@ public class Interceptor extends HandlerInterceptorAdapter {
 			throws Exception {
 		
 		String uri = request.getRequestURI();
-		Filtro filtro = new Filtro();
 		
 		//Requests que podem ser feitos por qualuqer um
-		if(uri.contains("assets")||filtro.temAcesso(uri, filtro.todos)){
+		if(uri.contains("assets")||this.temAcesso(uri, Filtro.todos)){
 			return true;
 		} 
 		
@@ -26,70 +28,55 @@ public class Interceptor extends HandlerInterceptorAdapter {
 			
 			UserDetail detail = new UserDetail();
 			
-			int acesso = detail.user(request).getUser().acesso;
+			Voluntario vol = detail.user(request).getUser();
 			
-			//Requests que necessita estar logado para ser feito
-			if(filtro.temAcesso(uri, filtro.logado)){
+			if(!vol.isAceitou_termo() && !uri.endsWith("TermoAdesao") && !uri.endsWith("aceitarTermo")){
+				response.sendRedirect("TermoAdesao");	
+				return false;
+			}
+			
+			if(vol.isAdmin()){
 				return true;
-			} 
+			}
 			
-			if (acesso != 69 ){
+			int equipeId = request.getParameter("equipeId") == null ? 0 : Integer.parseInt(request.getParameter("equipeId"));
+			int ativId = request.getParameter("ativId") == null ? 0 : Integer.parseInt(request.getParameter("ativId"));
 				
-				if (acesso != 0 ){
-						
-					if(filtro.temAcesso(uri, filtro.voluntario)) 
-					{
-						return true;
-								
-					} else{
-						
-						if (acesso != 1) {
-							
-							if(filtro.temAcesso(uri, filtro.cordenador)){
-								
-								return true;
-								
-							} 
-							
-						} else {
-
-								response.sendRedirect("area-voluntario");	
-								return false;
-								
-							} 
-							
-						
-						}
-
-
+			
+			if(vol.podeAcessarRequest(uri, equipeId, ativId)){
+				return true;
+			} else {			
+				
+				if(!detail.user(request).getUser().isNovato()){
+					response.sendRedirect("area-voluntario");	
+					return false;
 				} else {
-					
-					if(filtro.temAcesso(uri, filtro.novato)) 
-					{
-						return true;
-								
-					} else{
-									
-						response.sendRedirect("area-novato");	
-						return false;	
-						
-							}
+					response.sendRedirect("area-novato");	
+					return false;
 				}
-			 
-			} else{
-				
-				return true;
-				
-				}
-			
-		}  
+			}
+				/*
+				if(detail.user(request).getUser().isAceitou_termo()){
+					return true;
+				} else{
+			}*/
+		}
 		
 		response.sendRedirect("/");	
 		return false;
-		
 
 	}
-
-
+	
+	private boolean temAcesso(String uri, List<String> filtro){
+		
+		for(String request : filtro){
+			
+			if(uri.endsWith(request)){
+				return true;
+			}
+		}
+		
+		return false;
+	}
 
 }

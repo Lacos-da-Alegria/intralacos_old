@@ -11,9 +11,11 @@ import javax.mail.Transport;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
 
+import com.lacosdaalegria.intra.hibernate.model.Voluntario;
+
 public class JavaMail {
 	
-	public void emailRecuperaSenha(String remetente, String nome, String senha) {
+	public void emailRecuperaSenha(Voluntario voluntario, String token) {
         Properties props = new Properties();
         /** Par�metros de conex�o com servidor Gmail */
         props.put("mail.smtp.host", "smtp.gmail.com");
@@ -26,7 +28,7 @@ public class JavaMail {
                     new javax.mail.Authenticator() {
                          protected PasswordAuthentication getPasswordAuthentication() 
                          {
-                               return new PasswordAuthentication("intralacos@gmail.com", "teste");
+                               return new PasswordAuthentication("intralacos@gmail.com", "desenvol");
                          }
                     });
 
@@ -38,14 +40,14 @@ public class JavaMail {
               Message message = new MimeMessage(session);
               message.setFrom(new InternetAddress("intralacos@gmail.com")); //Remetente
 
-              Address[] toUser = InternetAddress.parse(remetente);  
+              Address[] toUser = InternetAddress.parse(voluntario.getEmail());  
 
               message.setRecipients(Message.RecipientType.TO, toUser);
               message.setSubject("Recuperando de Senha do Intra La�os");//Assunto
-              message.setText("Oi " + nome + " , ai esta seu login e senha, "
-              		+ "esperamos voc� em uma das atividades do La�os da Alegria:\n\n"
-              		+ "Login: " + remetente + "\n"
-              		+ "Senha: " + senha);
+              message.setText("Oie " + voluntario.getNome() + " , ai esta um link para voc� realizar "
+              		+ "seu reset de senha.\n  Esse link tem validade de 2 horas, certo?.\n" 
+              		+ "Estamos esperando voc� em uma das atividades do La�os da Alegria:\n\n"
+              		+ "link: www.intralacos.com/resetSenha?token=" + token);
               
               /**M�todo para enviar a mensagem criada*/
               Transport.send(message);

@@ -49,8 +49,20 @@ a, a:hover, a:focus {
 	border-top-right-radius: 5px;
 }
 
+.modal-header-x {
+	background: #428bca;
+	border-top-left-radius: 5px;
+	border-top-right-radius: 5px;
+}
+
 .modal-header-t {
 	background: #168D81;
+	border-top-left-radius: 5px;
+	border-top-right-radius: 5px;
+}
+
+.modal-header-b {
+	background: #428bca;
 	border-top-left-radius: 5px;
 	border-top-right-radius: 5px;
 }
@@ -307,7 +319,6 @@ ul.top-menu > li > .logout {
     height:17px;
     width:17px;
     display:inline-block;
-    background: url("../img/nav-expand.png") no-repeat top;
     border-radius:3px;
     -moz-border-radius:3px;
     -webkit-border-radius:3px;
@@ -316,7 +327,6 @@ ul.top-menu > li > .logout {
     top:15px;
 }
 .active .dcjq-icon {
-    background: url("../img/nav-expand.png") no-repeat bottom;
     border-radius:3px;
     -moz-border-radius:3px;
     -webkit-border-radius:3px;
@@ -1138,7 +1148,6 @@ PANELS CONFIGURATIONS
 	margin-left: 15px;
 }
 .white-panel .white-header {
-	background: #f4f4f4;
 	padding: 3px;
 	margin-bottom: 15px;
 	color: #c6c6c6;
@@ -1368,7 +1377,7 @@ PANELS CONFIGURATIONS
 	width: 70px;
 	height: 70px;
 	line-height: 70px;
-	font-size: 18px;
+	font-size: 14px;
 	color: #fff;
 	text-align: center;
 	border-radius: 100%;
@@ -1806,6 +1815,27 @@ PANELS CONFIGURATIONS
 	
 	background: url(../img/acao.jpg) no-repeat center top;
 }
+
+.profile-acaoii{
+	
+	background: url(../img/acaoii.jpg) no-repeat center top;
+}
+
+.profile-acaoiii{
+	
+	background: url(../img/acaoiii.jpg) no-repeat center top;
+}
+
+.profile-acaoiv{
+	
+	background: url(../img/acaoiii.jpg) no-repeat center top;
+}
+
+.profile-hrs{
+	
+	background: url(../img/hrs.jpg) no-repeat center top;
+}
+
 
 .profile-abrapec{
 	
@@ -2339,20 +2369,51 @@ label {
   border-color: #2775e2;
 }
 
-.btn-twitter {
+.btn-instagram {
   color: #fff;
-  background-color: #44ccfe;
-  border-color: #2bb4e8;
+  background-color: #E03566;
+  border-color: #bf325b;
 }
-.btn-twitter:hover,
-.btn-twitter:focus,
-.btn-twitter:active,
-.btn-twitter.active,
-.open .dropdown-toggle.btn-twitter {
+.btn-instagram:hover,
+.btn-instagram:focus,
+.btn-instagram:active,
+.btn-instagram.active,
+.open .dropdown-toggle.btn-instagram {
   color: #fff;
-  background-color: #2bb4e8;
-  border-color: #2bb4e8;
+  background-color: #bf325b;
+  border-color: #bf325b;
 }
+
+.btn-youtube {
+  color: #fff;
+  background-color: #e52d27;
+  border-color: #b31217;
+}
+.btn-youtube:hover,
+.btn-youtube:focus,
+.btn-youtube:active,
+.btn-youtube.active,
+.open .dropdown-toggle.btn-youtube {
+  color: #fff;
+  background-color: #b31217;
+  border-color: #b31217;
+}
+
+.btn-email {
+  color: #fff;
+  background-color: #e52d27;
+  border-color: #b31217;
+}
+.btn-email:hover,
+.btn-email:focus,
+.btn-email:active,
+.btn-email.active,
+.open .dropdown-toggle.btn-email {
+  color: #fff;
+  background-color: #b31217;
+  border-color: #b31217;
+}
+
 
 
 /*badge*/
@@ -2369,6 +2430,10 @@ label {
 }
 
 .badge.bg-important {
+    background: #ff6c60;
+}
+
+.badge.bg-danger {
     background: #ff6c60;
 }
 
@@ -2511,6 +2576,72 @@ label {
     margin-top: 0;
 }
 
+/*todolist2*/
+#sortable2 {
+    list-style-type: none;
+    margin: 0 0 20px 0;
+    padding: 0;
+    width: 100%;
+}
+#sortable2 li {
+    padding-left: 3em;
+    font-size: 12px;
+}
+#sortable2 li i {
+    position: absolute;
+    left:6px;
+    padding:4px 10px 0 10px;
+    cursor: pointer;
+}
+
+#sortable2 li input[type=checkbox]{
+    margin-top: 0;
+}
+
+/*todolist3*/
+#sortable3 {
+    list-style-type: none;
+    margin: 0 0 20px 0;
+    padding: 0;
+    width: 100%;
+}
+#sortable3 li {
+    padding-left: 3em;
+    font-size: 12px;
+}
+#sortable3 li i {
+    position: absolute;
+    left:6px;
+    padding:4px 10px 0 10px;
+    cursor: pointer;
+}
+
+#sortable3 li input[type=checkbox]{
+    margin-top: 0;
+}
+
+/*todolist4*/
+#sortable4 {
+    list-style-type: none;
+    margin: 0 0 20px 0;
+    padding: 0;
+    width: 100%;
+}
+#sortable4 li {
+    padding-left: 3em;
+    font-size: 12px;
+}
+#sortable4 li i {
+    position: absolute;
+    left:6px;
+    padding:4px 10px 0 10px;
+    cursor: pointer;
+}
+
+#sortable4 li input[type=checkbox]{
+    margin-top: 0;
+}
+
 .ui-sortable > li {
     padding: 15px 0 15px 35px !important ;
     position: relative;
@@ -2569,4 +2700,49 @@ label {
     min-height: 900px;
 }
 
+.gold-texture {
+	object-fit: cover;
+	background: url(../img/texture/gold.jpg);
+}
+
+.silver-texture {
+	object-fit: cover;
+    background: url(../img/texture/silver.jpg);
+}
+
+.bronze-texture {
+ 	object-fit: cover;
+    background: url(../img/texture/bronze.jpg);
+}
+
+
+/* Make the badge float in the top right corner of the button */
+.button__badge {
+  background-color: #fa3e3e;
+  border-radius: 2px;
+  color: white;
+ 
+  padding: 1px 3px;
+  font-size: 10px;
+  
+  position: absolute; /* Position the badge within the relatively positioned button */
+  top:-6px;
+  right: -5px;
+      
+}
+
+.blink {
+  animation: blink-animation 1s steps(5, start) infinite;
+  -webkit-animation: blink-animation 1s steps(5, start) infinite;
+}
+@keyframes blink-animation {
+  to {
+    visibility: hidden;
+  }
+}
+@-webkit-keyframes blink-animation {
+  to {
+    visibility: hidden;
+  }
+}
 
