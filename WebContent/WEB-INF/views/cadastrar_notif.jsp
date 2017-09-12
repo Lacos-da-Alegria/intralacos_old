@@ -5,10 +5,11 @@
 <!DOCTYPE html>
 <html lang="pt">
   <head>
-    <meta charset="utf-8">
+    <meta charset="ISO-8859-1">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="Intranet do Grupo da Alegria">
     <meta name="author" content="LaÁos da Alegria">
+    <meta name="apple-mobile-web-app-capable" content="yes" />
 
     <title>LaÁos da Alegria</title>
 
@@ -31,6 +32,8 @@
       <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
       <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
     <![endif]-->
+    
+    <link rel="shortcut icon" href="assets/img/favicon.png">
   </head>
 
   <body>
@@ -44,9 +47,12 @@
               <div class="sidebar-toggle-box">
                   <div class="fa fa-bars tooltips" data-placement="right" data-original-title="Menu"></div>
               </div>
-            <!--logo start-->	
-            <a href="area-voluntario" class="logo"><b>¡ÅREA DO VOLUNT¡RIO</b></a>
-            <!--logo end-->
+              
+						<!--logo start-->	
+			            <a href="area-voluntario" class="logo hidden-phone"><b>¡ÅREA DO VOLUNT¡RIO</b></a>
+			            <!--logo end-->            
+
+				  
             <div class="nav notify-row" id="top_menu">
                 <!--  notification start -->
                 <ul class="nav top-menu">
@@ -60,7 +66,7 @@
                     <!-- settings end -->
                     <!-- inbox dropdown start-->
                     <li class="dropdown tooltips" data-placement="left" data-original-title="Deixe Seu Feedback">
-                        <a class="dropdown-toggle"  data-toggle="modal"  href="volunteer-area.html#myModal2">
+                        <a class="dropdown-toggle"  data-toggle="modal"  href="volunteer-area.html#ModalFeedBack">
                             <i class="fa fa-envelope-o"></i>                            
 						</a>
                     </li>
@@ -83,74 +89,7 @@
       <aside>
           <div id="sidebar"  class="nav-collapse ">
               <!-- sidebar menu start-->
-              <ul class="sidebar-menu" id="nav-accordion">
-              
-              	  <p class="centered"><a href="construcao"><img src="assets/img/ui-sam.jpg" class="img-circle" width="60"></a></p>
-              	  <h5 class="centered">${voluntario}</h5>
-              	  	
-                  <li class="mt">
-                      <a href="area-voluntario">
-                          <i class="fa li_heart"></i>
-                          <span>¡Årea do Volunt·rio</span>
-                      </a>
-                  </li>
-				  
-				  <li class="sub-menu">
-                      <a href="construcao">
-                          <i class="fa li_user"></i>
-                          <span>Minha Conta</span>
-                      </a>
-                  </li>
-
-                  <li class="sub-menu">
-                      <a href="construcao" >
-                          <i class="fa li_tag"></i>
-                          <span>InformaÁıes Importantes</span>
-                      </a>
-                  </li>
-
-                  <li class="sub-menu">
-                      <a href="javascript:;" >
-                          <i class="fa fa-desktop"></i>
-                          <span>Painel da Atividade</span>
-                      </a>
-                      <ul class="sub">
-                          <li><a  href="detalhe-hub">HUB</a></li>
-                          <li><a  href="detalhe-hrg">HRG</a></li>                     
-						  <li><a  href="detalhe-hfa">HFA</a></li>
-                      </ul>
-                  </li>
-                  <li class="sub-menu">
-                      <a href="construcao" >
-                          <i class="fa fa-cogs"></i>
-                          <span>Admin Page</span>
-                      </a>
-                  </li>
-                  <li class="sub-menu">
-                      <a href="javascript:;" >
-                          <i class="fa li_news"></i>
-                          <span>Sobre</span>
-                      </a>
-                      <ul class="sub">
-                          <li><a  href="construcao">LaÁos da Alegria</a></li>
-                          <li><a  href="construcao">Trabalho Volunt·rio</a></li>
-                          <li><a  href="construcao">Como Posso Ajudar</a></li>
-                      </ul>
-                  </li>
-
-                  <li class="sub-menu">
-                      <a href="javascript:;" >
-                          <i class="fa li_phone"></i>
-                          <span>Contato</span>
-                      </a>
-                      <ul class="sub">
-                          <li><a  href="construcao">LaÁos Da Alegria</a></li>
-                          <li><a  href="construcao">Parceiros</a></li>
-					</ul>
-                  </li>
-                 
-
-              </ul>
+             	<%@ include file="menu.jsp" %>
               <!-- sidebar menu end-->
           </div>
       </aside>
@@ -159,38 +98,120 @@
       <!-- **********************************************************************************************************************************************************
       MAIN CONTENT
       *********************************************************************************************************************************************************** -->
-      <!--main content start-->
+       <!--main content start-->
       <section id="main-content">
           <section class="wrapper">
-
-                                  
-                    				
+	
+			
+		<div class="form-panel">
+		    <h1>Criar NotificaÁ„o</h1>
+		  	<hr>
+			<div class="row">
+			
+			<form class="form-horizontal style-form" action="insertNotif" method = "post">	
+			      <!-- left column -->
+			      <div class="col-md-3">
+			        <div class="text-center">
+			          <img src="assets/img/notification.jpg" class="avatar img-circle" alt="avatar" name="pic" accept="asset/img/*">
+			          <h6>Seja claro e direto!</h6> 			          
+			        </div>
+			      </div>
+		      
+		      <!-- edit form column -->
+		      <div class="col-md-8 personal-info ">
+		          <div class="form-group">  
+		            <label class="col-sm-2 col-sm-2 control-label"><b>Cor do cone</b></label>
+		              <div class="col-sm-10">
+		              <select class="form-control" name = "tipo"  required>
+							  <option value="1">Cinza</option>
+							  <option value="2">Roxo</option>
+							  <option value="3">Verde</option>
+							  <option value="4">Vermelho</option>
+		                </select> 
+		              </div>
+		          </div>
+		          <div class="form-group">  
+		            <label class="col-sm-2 col-sm-2 control-label"><b>Link</b></label>
+		              <div class="col-sm-10">
+		               <input name="link" class="form-control" type="text" required >
+		              </div>
+		          </div>
+		              
+		          <div class="form-group">  
+		            <label class="col-sm-2 col-sm-2 control-label"><b>Tag</b></label>
+		              <div class="col-sm-10">
+		              <input name = "tag" class="form-control" type="text" required>
+		              </div>
+		          </div>
+		          <div class="form-group">  
+		            <label class="col-sm-2 col-sm-2 control-label"><b>NotificaÁ„o</b></label>
+		              <div class="col-sm-10">
+		               <textarea rows="8" class="form-control placeholder-no-fix" name="mensagem" required></textarea>
+		              </div>
+		          </div>
+		          
+		          	<div class="form-group">
+		            	<label class="col-md-2 control-label"></label>
+		         	 	<div class="modal-footer">
+		              	<input class="btn btn-primary" value="Criar Notificao" type="submit">
+		             		 <span></span>
+		              	<input class="btn btn-default" value="Cancelar" type="reset">
+		             </div>
+		            
+		          </div>
+		          </div>
+		        </form>
+		      </div>
+		      
+		      	
+		  </div><!-- /row mt -->	
 					
-					
-					<div class="row">
-						
-						<h1 class= "centered">P·gina para PromoÁ„o de Volunt·rios</h1><br>
-						
-						
-						<form class = "centered" action="insertNotif" method="post">
-                      
-						  <label><b>Tipo:</b></label> <select name="tipo">
-							  <option value="1">1</option>
-							  <option value="2">2</option>
-							  <option value="3">3</option>
-							  <option value="4">4</option>
-							</select><br>
-							<label><b>Link:</b></label><br><input type="text" name="link"><br>
-							<label><b>Tag:</b></label><br><input type="text" name="tag"><br>
-							<label><b>NotificaÁ„o:</b><br><input type="text" name="mensagem">
-							</textarea>
-							                     	
-						  <br><input type="submit" value="Enviar">
-						  
-						</form>
-				
-                 
-         
+					<!-- Modal -->
+					<div aria-hidden="true" aria-labelledby="myModalLabel" role="dialog" tabindex="-1" id="myModal" class="modal fade">
+		              <div class="modal-dialog">
+		                  <div class="modal-content">
+		                      <div class="modal-header">
+		                          <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+		                          <h4 class="modal-title">Indique Aqui seu Amigo</h4>
+		                      </div>
+		                      <div class="modal-body">
+		                          <p>Entre com o e-mail abaixo para resetar sua senha.</p>
+		                          <input type="text" name="email" placeholder="E-mail" autocomplete="off" class="form-control placeholder-no-fix">
+		
+		                      </div>
+		                      <div class="modal-footer">
+		                          <button data-dismiss="modal" class="btn btn-default" type="button">Cancelar</button>
+		                          <button class="btn btn-theme" type="button">Enviar</button>
+		                      </div>
+		                  </div>
+		              </div>
+		          </div>
+		        <!-- modal -->
+				  
+			<!-- Modal -->
+					<div aria-hidden="true" aria-labelledby="myModalLabel" role="dialog" tabindex="-1" id="ModalFeedBack" class="modal fade">
+		              <div class="modal-dialog">
+		                  <div class="modal-content">
+		                      <div class="modal-header">
+		                          <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+		                          <h4 class="modal-title">Deixe Aqui seu Feedback</h4>
+		                      </div>
+		                      <form action="feedback"  method="post">
+		                      <div class="modal-body">
+		                          <p>Entre com o feedback abaixo. Depois È sÛ enviar</p>
+								<textarea rows="8" class="form-control placeholder-no-fix" name="feedback" required></textarea>								 
+		
+		                      </div>
+		                      <div class="modal-footer">
+		                          <button data-dismiss="modal" class="btn btn-default" type="button">Cancelar</button>
+		                          <button class="btn btn-theme" type="submit">Enviar</button>
+		         
+		                      </div>
+		                     </form>
+		                  </div>
+		              </div>
+		          </div>
+		          <!-- modal -->
              
           </section>
       </section>
@@ -208,28 +229,23 @@
     <script src="assets/js/jquery.nicescroll.js" type="text/javascript"></script>
     <script src="assets/js/jquery.sparkline.js"></script>
 
-
     <!--common script for all pages-->
     <script src="assets/js/common-scripts.js"></script>
-    
-    <script type="text/javascript" src="assets/js/gritter/js/jquery.gritter.js"></script>
-    <script type="text/javascript" src="assets/js/gritter-conf.js"></script>
 
     <!--script for this page-->
     <script src="assets/js/sparkline-chart.js"></script>    
-	<script src="assets/js/zabuto_calendar.js"></script>	
 	
-		
-	<script type="application/javascript">
-
-        function myNavFunction(id) {
-            $("#date-popover").hide();
-            var nav = $("#" + id).data("navigation");
-            var to = $("#" + id).data("to");
-            console.log('nav ' + nav + ' to: ' + to.month + '/' + to.year);
-        }
-    </script>
-  
+	<script type="text/javascript">
+		// When ready...
+		window.addEventListener("load",function() {
+			// Set a timeout...
+			setTimeout(function(){
+				// Hide the address bar!
+				window.scrollTo(0, 1);
+			}, 0);
+		});
+	</script>
+	
 
   </body>
 </html>

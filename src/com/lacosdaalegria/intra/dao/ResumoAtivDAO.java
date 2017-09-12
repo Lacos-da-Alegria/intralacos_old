@@ -203,6 +203,56 @@ public class ResumoAtivDAO {
 		return resultado.toString();	
 		
 	}
+
+	public String cadastroMes(String tag){
+		
+	 	Map<Integer,Integer> cadastros = new HashMap<Integer,Integer>();
+	 	List<Integer> resultado = new ArrayList<Integer>();
+		
+		String query = "select * from vw_novatos_por_mes_test where preferencia = ?"; 
+		
+	
+		PreparedStatement stmt;
+		
+		try {
+			
+			stmt = connection.prepareStatement(query);
+			
+			stmt.setString(1, tag);
+	
+			ResultSet rs = stmt.executeQuery();	
+		
+			while (rs.next()){
+
+				cadastros.put(rs.getInt(2), rs.getInt(4));
+	
+			}
+			
+			stmt.close();
+			rs.close();
+			
+			for(int i = 1; i<=12; i++){
+				
+				if (cadastros.containsKey(i)){
+					
+					resultado.add(cadastros.get(i));
+					
+				} else {
+					
+					resultado.add(0);
+					
+				}
+			}
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+	
+		return resultado.toString();	
+		
+	}
 	
 	public List<ResumoAtiv> distruicaoVolunt(int ativid){
 		
@@ -325,5 +375,16 @@ public class ResumoAtivDAO {
 		return frequencia;	
 		
 	}
+	
+	  public void close() {
+		  
+		  try {
+			this.connection.close();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		  
+	  }
 
 }

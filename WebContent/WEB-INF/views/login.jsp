@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="Intranet do Grupo da Alegria">
     <meta name="author" content="Laços da Alegria">
+    <meta name="apple-mobile-web-app-capable" content="yes" />
 
     <title>Laços da Alegria</title>
 
@@ -38,6 +39,7 @@
 		      <form class="form-login" action = "efetuaLogin" method="post">
 		        <h2 class="form-login-heading">Área do Voluntário</h2>
 		        <div class="login-wrap">
+		        	<p><font color="red">${error}</font><font color="green">${sucess}</font></p>
 		            <input name="login" type="text" class="form-control" placeholder="Login ou Email" autofocus required>
 		            <br>
 		            <input name="senha" type="password" class="form-control" placeholder="Senha" required>
@@ -108,6 +110,23 @@
     <script>
         $.backstretch("assets/img/login-bg2.jpg", {speed: 500});
     </script>
+    
+    <script type="text/javascript">
+		// When ready...
+		window.addEventListener("load",function() {
+			// Set a timeout...
+			setTimeout(function(){
+				// Hide the address bar!
+				window.scrollTo(0, 1);
+			}, 0);
+		});
+	</script>
+	
+	<script>
+	function delete_cookie( name ) {
+		  document.cookie = name + '=; expires=Thu, 01 Jan 1970 00:00:01 GMT;';
+		};
+	</script>
 
 
   </body>

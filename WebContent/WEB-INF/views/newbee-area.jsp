@@ -1,3 +1,7 @@
+<%@ page language="java" contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
+
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -5,6 +9,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="Intranet do Grupo da Alegria">
     <meta name="author" content="LaÁos da Alegria">
+    <meta name="apple-mobile-web-app-capable" content="yes" />
     
     <title>LaÁos da Alegria</title>
 
@@ -40,20 +45,7 @@
       TOP BAR CONTENT & NOTIFICATIONS
       *********************************************************************************************************************************************************** -->
       <!--header start-->
-      <header class="header black-bg">
-              <div class="sidebar-toggle-box">
-                  <div class="fa fa-bars tooltips" data-placement="right" data-original-title="Menu"></div>
-              </div>
-            <!--logo start-->
-            <a href="area-novato" class="logo"><b>·rea do Novato</b></a>
-            <!--logo end-->
-           
-            <div class="top-menu">
-            	<ul class="nav pull-right top-menu">
-                    <li><a class="logout" href="logout">Logout</a></li>
-            	</ul>
-            </div>
-        </header>
+     <%@ include file="top_menu.jsp" %> 	
       <!--header end-->
       
       <!-- **********************************************************************************************************************************************************
@@ -63,57 +55,7 @@
       <aside>
           <div id="sidebar"  class="nav-collapse ">
               <!-- sidebar menu start-->
-              <ul class="sidebar-menu" id="nav-accordion">
-              
-              	  <p class="centered"><a href="profile"><img src="assets/img/ui-sam.jpg" class="img-circle" width="60"></a></p>
-              	  <h5 class="centered">${usuario.nome}</h5>
-              	  	
-                  <li class="mt">
-                      <a class="active" href="area-novato">
-                          <i class="fa li_heart"></i>
-                          <span>¡Årea do Novato</span>
-                      </a>
-                  </li>
-				  
-				  <li class="sub-menu">
-                      <a href="profile">
-                          <i class="fa li_user"></i>
-                          <span>Minha Conta</span>
-                      </a>
-                  </li>
-
-                  <li class="sub-menu">
-                      <a href="construcao" >
-                          <i class="fa li_tag"></i>
-                          <span>InformaÁıes Importantes</span>
-                      </a>
-                  </li>
-                  
-                  <li class="sub-menu">
-                      <a href="javascript:;" >
-                          <i class="fa li_news"></i>
-                          <span>Sobre</span>
-                      </a>
-                      <ul class="sub">
-                          <li><a  href="construcao">LaÁos da Alegria</a></li>
-                          <li><a  href="construcao">Trabalho Volunt·rio</a></li>
-                          <li><a  href="construcao">Como Posso Ajudar</a></li>
-                      </ul>
-                  </li>
-
-                  <li class="sub-menu">
-                      <a href="javascript:;" >
-                          <i class="fa li_phone"></i>
-                          <span>Contato</span>
-                      </a>
-                      <ul class="sub">
-                          <li><a  href="construcao">LaÁos Da Alegria</a></li>
-                          <li><a  href="construcao">Parceiros</a></li>
-					</ul>
-                  </li>
-                 
-
-              </ul>
+            	  <%@ include file="menu.jsp" %>
               <!-- sidebar menu end-->
           </div>
       </aside>
@@ -131,18 +73,18 @@
 		         	  <h1 class="centered">Seja Bem Vindo ao LaÁos da Alegria!</h1><br>
 					  
                   	<div class="row">
-                  		<div class="col-lg-4 col-md-4 col-sm-4 col-xs-12 desc">
+                  		<div class="col-lg-4 col-md-4 col-sm-4 col-xs-12 mb">
 			                <div class="project">
 		                        <div class="photo-wrapper">
 		                            <div class="photo">
-		                            	<a class="more" href="https://www.youtube.com/watch?v=Nj-IbZ3Yz3E&feature=player_embedded#at=41"><img class="img-responsive" src="assets/img/portfolio/import-info.jpg" alt=""></a>
+		                            	<a class="more" href="https://www.youtube.com/watch?v=SW1I5sfWnsg?autoplay=1"><img class="img-responsive" src="assets/img/portfolio/import-info.jpg" alt=""></a>
 		                            </div>
 		                            <div class="overlay"></div>
 		                        </div>
 		                    </div>
 						</div><!-- col-lg-4 -->
-					
-					<div class="col-lg-4 col-md-4 col-sm-4 col-xs-12 desc">
+						
+					<div class="col-lg-4 col-md-4 col-sm-4 col-xs-12 mb">
 						<div class="project-wrapper">
 		                    <div class="project">
 		                        <div class="photo-wrapper">
@@ -155,12 +97,12 @@
 		                </div>
 					</div><!-- col-lg-4 -->
 					
-					<div class="col-lg-4 col-md-4 col-sm-4 col-xs-12 desc">
+					<div class="col-lg-4 col-md-4 col-sm-4 col-xs-12 mb">
 						<div class="project-wrapper">
 		                    <div class="project">
 		                        <div class="photo-wrapper">
 		                            <div class="photo">
-		                            	<a class="more" href="https://www.youtube.com/watch?v=SW1I5sfWnsg&feature=player_embedded#at=41"><img class="img-responsive" src="assets/img/portfolio/como-funfa.jpg" alt=""></a>
+		                            	<a class="more" href="https://www.youtube.com/watch?v=fxbDkhc4IeI?autoplay=1"><img class="img-responsive" src="assets/img/portfolio/como-funfa.jpg" alt=""></a>
 		                            </div>
 		                            <div class="overlay"></div>
 		                        </div>
@@ -177,9 +119,9 @@
                   		<div class="col-md-2 col-sm-2 col-md-offset-1 box0">
                   			<div class="box1">
 					  			<span class="li_heart"></span>
-					  			<h3>${quantVolutarios}</h3>
+					  			<h3>${maislacos.total_voluntarios}</h3>
                   			</div>
-					  			<p>Hoje o LaÁos da Alegria conta com ${quantVolutarios} lindos volunt·rios!</p>
+					  			<p>Hoje o LaÁos da Alegria conta com ${maislacos.total_voluntarios} lindos volunt·rios!</p>
                   		</div>
                   		<div class="col-md-2 col-sm-2 box0">
                   			<div class="box1">
@@ -198,9 +140,9 @@
                   		<div class="col-md-2 col-sm-2 box0">
                   			<div class="box1">
 					  			<span class="li_diamond"></span>
-					  			<h3>5</h3>
+					  			<h3>${maislacos.atividades_distintas}</h3>
                   			</div>
-					  			<p>Ainda faltam 5 Atividades para vocÍ conhecer, que Ûtimo!</p>
+					  			<p>Ainda faltam ${maislacos.atividades_distintas} Atividades para vocÍ conhecer, que Ûtimo!</p>
                   		</div>
                   		<div class="col-md-2 col-sm-2 box0">
                   			<div class="box1">
@@ -211,6 +153,35 @@
                   		</div>
                   	
                   	</div><!-- /row mt -->	
+                  	
+                  	
+                  <!-- Modal -->
+					<div aria-hidden="true" aria-labelledby="myModalLabel" role="dialog" tabindex="-1" id="myModaAtivar" class="modal fade">
+		              <div class="modal-dialog">		           
+		                  <div class="modal-content">
+		                  <form action="promoverNovato"  method="post">
+		                      <div class="modal-header">
+		                          <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+		                          <h4 class="modal-title">VocÍ n„o È mais Novato?</h4>
+		                      </div>
+		                      <div class="modal-body">
+		                      
+		                          <p>… so colocar o cÛdigo de promoÁ„o abaixo e enviar que ser· promovido. <br>
+		                          VocÍ pode obter esse cÛdigo com o coordenador da sua atividade</p>
+		                          
+		                          <small><font color="red">*Lembrando da import‚ncia de realmente ter ido na primeira atividade, contamos com a sua honestidade</font></small>
+		                          <input type="text" name="codigo" placeholder="Codigo da Semana" autocomplete="off" class="form-control placeholder-no-fix">
+		
+		                      </div>
+		                      <div class="modal-footer">
+		                          <button data-dismiss="modal" class="btn btn-default" type="button">Fechar</button>
+		                          <button class="btn btn-theme" type="submit">Enviar</button>
+		                      </div>
+		                   </form> 
+		                  </div>
+		              </div>
+		          </div>
+		          <!-- modal -->
 					
                  </div><!-- /col-lg-9 END SECTION MIDDLE -->
                   
@@ -219,29 +190,25 @@
       RIGHT SIDEBAR CONTENT
       *********************************************************************************************************************************************************** -->                  
                   
-                  <div class="col-lg-3 ds">
-                    <!--Inicio Side Bar-->
-					<h3>PosiÁ„o na Fila de Espera</h3>
-                                        
-              
+                  <div class="col-lg-3 ds">                  
+                    <!--Inicio Side Bar  -->
+                   <c:if test="${voluntario.status == 1}">
+					<h3>PosiÁ„o na Fila de Espera</h3>               
                       <div class="desc box2 centered">
-                      
-						<button type="button" class="btn btn-round btn-primary"><span class="li_heart"></span>&nbsp&nbspVocÍ È o <b><font size="3">37∫</font></b> na Fila</button>
-                
+						<button type="button" class="btn btn-round btn-primary"><span class="li_heart"></span>&nbsp&nbspVocÍ È o <b><font size="3">${posicao}∫</font></b> na Fila</button>
                       </div>
-             
+           
                        <!-- USERS ONLINE SECTION -->
 						<h3>PreferÍncia de Atividade</h3>
 						
                       <!-- First Member -->
-                      <form action="preferencia">
+                      <form action="atualizaPreferencia" method="post">
                       <div class="desc">
-                      	<select class="form-control" name = "preferencia">
-						  <option>Hospital Regional do Gama</option>
-						  <option>Hospital Regional de Taguatinga</option>
-						  <option>Hospital das ForÁas Armadas</option>
-						  <option>Hospital Universit·rio de BrasÌlia</option>
-						  <option>Atividades Extra-Hospitalares</option>
+                      	<select name="preferencia" class="form-control" required>	
+                      	  <option value="">PreferÍncia de Atividade*</option>
+						  <c:forEach items="${hospitais}" var="atividade">
+									<option value="${atividade.id}">${atividade.nome}</option>	
+								</c:forEach>
 						</select><br>						
 						  
 						<div class="centered">
@@ -250,17 +217,16 @@
 						<button type="submit" class="btn btn-theme" name = "Alterar"><i class="fa fa-check"></i> Alterar</button>
 						</div>
 						<div class="btn-group ">
-						<button type="button" class="btn btn-theme04" Resetar = "Resetar"><i class="fa fa-adjust"></i> Resetar</button>
+						<button type="reset" class="btn btn-theme04" ><i class="fa fa-adjust"></i> Resetar</button>
 						</div>
                   		
                       </div>
 					</div>
-					</form>
-                                   
-                 					
+					</form>       
+					</c:if>                           
+                 <c:if test="${voluntario.status == 2}">	
 					<h3>Conta Desativada</h3>
-                                        
-                      <!-- First Action -->
+                                                              
                       <div class="desc centered" >
                       
 						<div class="btn-group" >
@@ -268,16 +234,11 @@
 						    Reativar Minha Conta <span class="caret"></span>
 						  </button>
 						  <ul class="dropdown-menu" role="menu">
-						    <li><a href="area-novato">Agora</a></li>
-						    <li><a href="#">Daqui a 01 Semana</a></li>
-						    <li><a href="#">Daqui a 02 Semana</a></li>						    
-						    <li><a href="#">Daqui a 01 M√™s</a></li>
-							<li><a href="#">N√£o Sei Quando</a></li>
-							
+						    <li><a href="ativaNovato">Agora</a></li>
 						  </ul>
 						</div>						
-                      </div>
-
+                      </div>                                          
+				</c:if>
 					<!-- USERS ONLINE SECTION -->
 						<h3>Calendario de Atividades</h3><br>
 
@@ -334,8 +295,26 @@
     <script src="assets/js/sparkline-chart.js"></script>    
 	<script src="assets/js/zabuto_calendar.js"></script>	
 	
+	<c:if test="${userDetail.primeiro_acesso}">
 	
+	<a class="more" id="hidden_link" href="https://www.youtube.com/watch?v=LkwAybdLPBQ?autoplay=1"></a>
 	
+    <script type="text/javascript">
+    	$(document).ready(function() {
+        	$("#hidden_link").fancybox().trigger('click');
+    	});
+    	
+    	window.addEventListener("load",function() {
+    		// Set a timeout...
+    		setTimeout(function(){
+    			// Hide the address bar!
+    			window.scrollTo(0, 1);
+    		}, 0);
+    	});
+    	
+	</script>
+  	</c:if>	
+
 	<script type="application/javascript">
         $(document).ready(function () {
             $("#date-popover").popover({html: true, trigger: "manual"});
@@ -350,10 +329,6 @@
                 },
                 action_nav: function () {
                     return myNavFunction(this.id);
-                },
-                ajax: {
-                    url: "show_data.php?action=1",
-                    modal: true
                 },
                 legend: [
                     {type: "text", label: "Special event", badge: "00"},
@@ -374,8 +349,8 @@
 			'href'			: this.href.replace(new RegExp("watch\\?v=", "i"), 'v/'),
 			'type'			: 'swf',
 			'swf'			: {
-			   	 'wmode'		: 'transparent',
-				'allowfullscreen'	: 'true'
+			'wmode'		: 'transparent',
+			'allowfullscreen'	: true
 			}
 		});
 
@@ -394,9 +369,23 @@
             var nav = $("#" + id).data("navigation");
             var to = $("#" + id).data("to");
             console.log('nav ' + nav + ' to: ' + to.month + '/' + to.year);
-        }
+        };
+        
+    	
+    	$('select[name^="preferencia"] option[value="${voluntario.preferencia.id}"]').attr("selected","selected");
+    	
     </script>
-  
+
+    <script type="text/javascript">
+		// When ready...
+		window.addEventListener("load",function() {
+			// Set a timeout...
+			setTimeout(function(){
+				// Hide the address bar!
+				window.scrollTo(0, 1);
+			}, 0);
+		});
+	</script>
 
   </body>
 </html>

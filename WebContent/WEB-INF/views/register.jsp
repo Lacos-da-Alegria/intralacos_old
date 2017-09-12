@@ -8,11 +8,12 @@
 
 <html lang="pt">
   <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="Sistema Interno do Laços da Alegria">
     <meta name="author" content="Laços da Alegria">
     <meta name="keyword" content="Laços da Alegria, Palhaços de Hospital, Trabalho Voluntário">
+    <meta name="apple-mobile-web-app-capable" content="yes" />
 
     <title>Laços da Alegria</title>
 
@@ -44,10 +45,11 @@
 	  
 	  	<div class="container" >
 	  	
-		      <form class="form-regi" action="cadastrar" method="post">
+		      <form id="cadastro" class="form-regi" action="cadastrar" method="post">
 			  
-		        <h2 class="form-regi-heading">Cadastro do Voluntário</h2><br><small class="ml">
-				<font color="red"> Informações Obrigatórias</font></small>
+		        <h2 class="form-regi-heading">Cadastro do Voluntário</h2><br>
+		        <p class="ml centered"><font color="red">${error}</font></p>
+		        <small class="ml"><font color="red"><b> *Informações Obrigatórias</b></font></small>
 				
 		        <div class = "inlineblock centered">
 				
@@ -64,48 +66,25 @@
 						<br>
 						<input name="senha" id="pass1" type="password" class="form-control" placeholder="Senha* - Min. de 6 Caracteres" required>
 						<br>	
-						<input type="password" class="form-control" placeholder="Confirmar Senha*" required>
+						<input name="dual_senha" type="password" id="pass2" class="form-control" placeholder="Confirmar Senha*" onChange="checkPasswordMatch();" required>
+						<font color="red" id="mensagemPassword"></font>
 						<br>
 						<input name="email" type="email" class="form-control" placeholder="E-mail*" required >
 						<br>									
 						
-							<select name="regiao" class="form-control" required>
+							 <select name="regiaoId" class="form-control" required>
 								<option value="">Cidade Satélite*</option>								
-								<option >Águas Claras</option>
-								<option >Asa Norte</option>
-								<option >Asa Sul</option>
-								<option >Brazlándia</option> 
-								<option >Candangolândia</option>
-								<option >Ceilândia</option>
-								<option >Cruzeiro</option>
-								<option >Gama</option>
-								<option >Guará</option>
-								<option >Jardim Botânico</option> 
-								<option >Lago Norte</option>
-								<option >Lagoa Sul</option>
-								<option >Núcleo Bandeirante</option>
-								<option >Paranoá</option>
-								<option >Planaltina</option>
-								<option >Recanto das Emas</option>
-								<option >Riacho Fundo</option>
-								<option >Samambaia</option>
-								<option >Santa Maria</option>
-								<option >São Sebastião</option>
-								<option >Sobradinho</option>
-								<option >Taguatinga</option>
-								<option >Vicente Pires</option>
-								<option >Entorno Saida Norte</option>
-								<option >Entorno Saida Sul</option>
+								<c:forEach items="${regioes}" var="regiao">
+									<option value="${regiao.id}">${regiao.nome}</option>	
+								</c:forEach>
 							</select>
 							<br>
-							
-							<select name="preferencia" class="form-control" required>
+							   
+							<select name="preferenciaId" class="form-control" required>
 								<option value="">Preferência de Atividade*</option>
-								<option value="1">Hospital Regional do Gama</option>
-								  <option value="2">Hospital Regional de Taguatinga</option>
-								  <option value="3">Hospital das Forças Armadas</option>
-								  <option value="4">Hospital Universitário de Brasília</option>
-								  <option value="5">Atividades Extra-Hospitalares</option>
+								<c:forEach items="${atividades}" var="atividade">
+									<option value="${atividade.id}">${atividade.nome}</option>	
+								</c:forEach>
 							</select>
 							<br>			
 								
@@ -127,9 +106,11 @@
 						<br>
 						<input name="cpf" type="text"  class="form-control" placeholder="CPF*" required>
 						<br>	
-						<input name="dt_Nascimento" type="date" placeholder="Data de Nascimento*" class="form-control" onfocus="(this.type='date')" required>
+						<input class="form-control" placeholder="Data de Nascimento*" type="text" name="dt_Nascimento" data-inputmask="'alias': 'dd/mm/yyyy'" data-mask required>
 						<br>
-						<input name="whatsapp" type="tel" class="form-control" placeholder="WhatsApp*" required	>
+                       	<input name="ddd" type="tel" class="form-control" placeholder="DDD*" required>
+						<br>
+                        <input name="whatsapp" type="tel" class="form-control" placeholder="WhatsApp*" required>
 						<br>
 						<input name="endereco" type="text" class="form-control" placeholder="Endereço" >
 						<br>
@@ -188,8 +169,52 @@
 	    $("[data-mask]").inputmask();
 
 	  });
+   
+   function checkPasswordMatch() {
+	    var password = $("#pass1").val();
+	    var confirmPassword = $("#pass2").val();
+
+	    if (password != confirmPassword){
+	        $("#mensagemPassword").html("As senhas não coincidem!").css('color', 'red');
+	        return false;
+	    } else{
+	    	$("#mensagemPassword").html("Senhas coincidem!").css('color', 'green');
+	    	if(password.length>=6)
+	    		return true;
+	    	else {
+	    		$("#mensagemPassword").html("Senha menor que 6 dígitos!").css('color', 'red');
+	    		return false;
+	    	}
+	    		
+	    }    
+	}
+
+	$(document).ready(function () {
+	   $("#pass1, #pass2").keyup(checkPasswordMatch);
+	});
+	
+	$('#cadastro').submit(function(e){ 
+		   var bool = checkPasswordMatch();
+		   if(!bool){
+		    e.preventDefault(); // will stop the form from submitting
+		    alert("Favor corrigir os erros antes de submeter o cadastro!");
+		   } else {
+		    return true; //continue to submit form 
+		    }
+		});	
 
    </script>
+   
+   <script type="text/javascript">
+		// When ready...
+		window.addEventListener("load",function() {
+			// Set a timeout...
+			setTimeout(function(){
+				// Hide the address bar!
+				window.scrollTo(0, 1);
+			}, 0);
+		});
+	</script>
 
   </body>
 </html>

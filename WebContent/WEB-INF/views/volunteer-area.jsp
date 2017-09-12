@@ -6,10 +6,11 @@
 <!DOCTYPE html>
 <html lang="pt">
   <head>
-    <meta charset="utf-8">
+    <meta charset="ISO-8859-1">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="Intranet do Grupo da Alegria">
     <meta name="author" content="LaÁos da Alegria">
+    <meta name="apple-mobile-web-app-capable" content="yes" />
 
     <title>LaÁos da Alegria</title>
 
@@ -20,6 +21,7 @@
     <link rel="stylesheet" type="text/css" href="assets/css/zabuto_calendar.css">
     <link rel="stylesheet" type="text/css" href="assets/js/gritter/css/jquery.gritter.css" />
     <link rel="stylesheet" type="text/css" href="assets/lineicons/style.css">    
+    <link rel="stylesheet" href="assets/css/to-do.css">
     
     <!-- Custom styles for this template -->
     <link href="assets/css/style.css" rel="stylesheet">
@@ -35,7 +37,7 @@
     
     
     <c:choose>
-		<c:when test="${faltante==true}">
+		<c:when test="${faltante}">
 			<link rel="shortcut icon" href="assets/img/sad.png">
 		</c:when>
 		<c:otherwise>
@@ -53,40 +55,7 @@
       TOP BAR CONTENT & NOTIFICATIONS
       *********************************************************************************************************************************************************** -->
       <!--header start-->
-      <header class="header black-bg">
-              <div class="sidebar-toggle-box">
-                  <div class="fa fa-bars tooltips" data-placement="right" data-original-title="Menu"></div>
-              </div>
-            <!--logo start-->	
-            <a href="area-voluntario" class="logo"><b>¡ÅREA DO VOLUNT¡RIO</b></a>
-            <!--logo end-->
-            <div class="nav notify-row" id="top_menu">
-                <!--  notification start -->
-                <ul class="nav top-menu">
-                    <!-- settings start -->
-                    <li class="dropdown tooltips" data-placement="left" data-original-title="Indique Um Amigo">
-                        <a data-toggle="modal" class="dropdown-toggle" href="volunteer-area.html#myModal">
-                            <i class="fa li_megaphone" ></i>                            
-                        </a>
-                        					
-                    </li>
-                    <!-- settings end -->
-                    <!-- inbox dropdown start-->
-                    <li class="dropdown tooltips" data-placement="left" data-original-title="Deixe Seu Feedback">
-                        <a class="dropdown-toggle"  data-toggle="modal"  href="volunteer-area.html#ModalFeedBack">
-                            <i class="fa fa-envelope-o"></i>                            
-						</a>
-                    </li>
-                    <!-- inbox dropdown end -->
-                </ul>
-                <!--  notification end -->
-            </div>
-            <div class="top-menu">
-            	<ul class="nav pull-right top-menu">
-                    <li><a class="logout" href="logout">Logout</a></li>
-            	</ul>
-            </div>
-        </header>
+      	<%@ include file="top_menu.jsp" %> 	
       <!--header end-->
       
       <!-- **********************************************************************************************************************************************************
@@ -96,105 +65,7 @@
       <aside>
           <div id="sidebar"  class="nav-collapse ">
               <!-- sidebar menu start-->
-              <ul class="sidebar-menu" id="nav-accordion">
-              
-              	  <p class="centered"><a href="profile"><img src="assets/img/ui-sam.jpg" class="img-circle" width="60"></a></p>
-              	  <h5 class="centered">${voluntario.nome}</h5>
-              	  	
-                  <li class="mt">
-                      <a class="active" href="area-voluntario">
-                          <i class="fa li_heart"></i>
-                          <span>¡Årea do Volunt·rio</span>
-                      </a>
-                  </li>
-				  
-				  <li class="sub-menu">
-                      <a href="profile">
-                          <i class="fa li_user"></i>
-                          <span>Minha Conta</span>
-                      </a>
-                  </li>
-
-                   <li class="sub-menu">
-                      <a href="javascript:;" >
-                          <i class="fa li_tag"></i>
-                          <span>InformaÁıes Importantes</span>
-                      </a>
-                       <ul class="sub">                
-                          <li><a  href="construcao">Volunt·rio Nota 10</a></li>
-                      </ul>
-                  </li>
-                  
-                  <li class="sub-menu">
-                      <a href="javascript:;" >
-                          <i class="fa fa-list-ol"></i>
-                          <span>Lista de Atividades</span>
-                      </a>
-                       <ul class="sub">
-                       <c:forEach items="${Atividade}" var="ativ" >
-                         <li><a  href="listaAtividade?atividade=${ativ.ativid}">${ativ.tag}</a></li>
-                        </c:forEach>
-                      </ul>
-                  </li>
-                  
-				<c:if test="${(voluntario.acesso == 69) || (voluntario.acesso != 1)}">
-					
-                  <li class="sub-menu">
-                      <a href="javascript:;" >
-                          <i class="fa fa-desktop"></i>
-                          <span>Painel da Atividade</span>
-                      </a>
-                      <ul class="sub">
-                      <c:forEach items="${todas_Ativs}" var="ativ" >
-                      <c:if test="${(voluntario.acesso == 69) || (voluntario.acesso == ativ.key + 1)}">
-                          <li><a  href="detalheAtividade?atividade=${ativ.key}">${ativ.value}</a></li>
-                       </c:if>
-					</c:forEach>
-                      </ul>
-                  </li>
-                  
-                 </c:if>
-                  <c:if test="${voluntario.acesso == 69}">
-                  <li class="sub-menu">
-                      <a href="javascript:;" >
-                          <i class="fa fa-cogs"></i>
-                          <span>Admin Page</span>
-                      </a>
-                      
-                      <ul class="sub">
-                      
-                          <li><a  href="promover">Promover Usuarios</a></li>
-                          <li><a  href="cadastrarNotif">Cadastrar Notificacao</a></li>
-						
-                      </ul>
-                      
-                  </li>
-                  </c:if>
-                  <li class="sub-menu">
-                      <a href="javascript:;" >
-                          <i class="fa li_news"></i>
-                          <span>Sobre</span>
-                      </a>
-                      <ul class="sub">
-                          <li><a  href="construcao">LaÁos da Alegria</a></li>
-                          <li><a  href="construcao">Trabalho Volunt·rio</a></li>
-                          <li><a  href="construcao">Como Posso Ajudar</a></li>
-                      </ul>
-                  </li>
-
-                  <li class="sub-menu">
-                      <a href="javascript:;" >
-                          <i class="fa li_phone"></i>
-                          <span>Contato</span>
-                      </a>
-                      <ul class="sub">
-                          <li><a  href="construcao">LaÁos Da Alegria</a></li>
-                          <li><a  href="construcao">Parceiros</a></li>
-					</ul>
-                  </li>
-                 
-
-              </ul>
+				<%@ include file="menu.jsp" %>
               <!-- sidebar menu end-->
               
           </div>
@@ -212,27 +83,43 @@
                   <div class="col-lg-9">
 				  
 				  <h1 class= "centered">Atividades dessa Semana!</h1>
-                  
-                    <div class="row mt">
+				  
+				  <c:if test="${AtividadesOngs.size() > 0}">
+				  <ul class="nav nav-pills">
+				    <li class="active"><a data-toggle="pill" href="#home">Hospitais</a></li>
+				    <li><a data-toggle="pill" href="#menu1">Ong's <span class="badge bg-important">${AtividadesOngs.size()}</span></a></li>
+				  </ul>
+				  </c:if>
+				  
+		 <div class="tab-content">
+          <div id="home" class="tab-pane fade in active row mt">        
                     
          <!-- Comeca a logica chosse when dos botoens de participacao das atividades -->
          
 				<!-- Inicio Botao HUB -->	
 				
-				 <c:forEach items="${Atividade}" var="ativ" >
+				 <c:forEach items="${atividades}" var="ativ" >
 				 
 				<div class="col-lg-4 col-md-4 col-sm-4 mb">
 					<div class="content-panel pn">
 						<div class="col-xs-4 col-xs-offset-8">
-							<button class="btn btn-clear-g with-shadow" data-toggle="modal"  href="volunteer-area.html#Modal${ativ.tag}">INFO</button>
+							<button class="btn btn-clear-g with-shadow" data-toggle="modal"  href="#Modal${ativ.tag}">INFO</button>
 						</div>
 						
-						<div id="profile-01" class="profile-${fn:toLowerCase(ativ.tag)}">
+						<div id="profile-01" style="background-image: url(${ativ.urlS3()});background-size: cover; background-repeat: no-repeat; background-position: 50% 50%;">
 								<br><h3 class="with-shadow">${ativ.tag}</h3>
 						</div>
+						
+						
+				<c:if test="${fase_randomica_acabou}">
+					<c:set var="posicaoAtiv" value="${voluntario.posicaoFila(ativ)}"/>
+					<c:set var="ativLotada" value="${ativ.atividadeLotada()}"/>
+				</c:if>
+						
+				<c:set var="ativInscrito" value="${voluntario.estaInscrito(ativ)}"/>
 							
 				<c:choose>
-					<c:when test="${aberto == false}">
+					<c:when test="${!ativ.podeIncrever()}">
 						<div class="profile-01b centered" data-toggle="modal" href="#Modalfechada">									
 							<p>InscriÁıes Fechadas</p>
 						</div>
@@ -241,17 +128,17 @@
 				
 					<c:choose>
 					
-						<c:when test="${ativsPeriodo[ativ.periodo]==null || ativsPeriodo[ativ.periodo]==false}">						
+						<c:when test="${voluntario.podeSeInscrever(ativ)}">						
 							<c:choose>
-								<c:when test="${lotada[ativ.ativid] == true}">
-									<a href="inscrever?atividade=${ativ.ativid}" onclick="clickAndDisable(this);">									
+								<c:when test="${fase_randomica_acabou && ativLotada}">
+									<a href="inscrever?atividade=${ativ.id}" onclick="clickAndDisable(this);">									
 										<div class="profile-01l centered">									
 											<p>Atividade Lotada, entrar na Fila!</p>
 										</div>
 									</a>	
 						  		</c:when>
 						  <c:otherwise>								
-								<a href="inscrever?atividade=${ativ.ativid}" onclick="clickAndDisable(this);">
+								<a href="inscrever?atividade=${ativ.id}" onclick="clickAndDisable(this);">
 										<div class="profile-01 centered">								
 											<p>Participar</p>
 										</div>
@@ -261,10 +148,10 @@
 				  		</c:when>
 				  	<c:otherwise>
 						<c:choose>			
-						<c:when test="${ativAtual[ativ.ativid]==true}">
+						<c:when test="${ativInscrito}">
 							<c:choose>
-								<c:when test="${lotada[ativ.ativid] == true}">
-									<a data-toggle="modal" href="#ModalCancelar" onclick="modalCancelar(${ativ.ativid});">									
+								<c:when test="${fase_randomica_acabou && ativLotada}">
+									<a data-toggle="modal" href="#ModalCancelar" onclick="modalCancelar(${voluntario.registroAtividade(ativ).id});">									
 									<div class="profile-01c centered">									
 										<p>Sair da Atividade Lotada</p>
 									</div>
@@ -272,7 +159,128 @@
 						  		</c:when>
 						  	<c:otherwise>
 						  	
-						  		<a data-toggle="modal" href="#ModalCancelar" onclick="modalCancelar(${ativ.ativid});">									
+						  		<a data-toggle="modal" href="#ModalCancelar" onclick="modalCancelar(${voluntario.registroAtividade(ativ).id});">									
+										<div class="profile-01c centered">									
+											<p>Cancelar ParticipaÁ„o</p>
+										</div>
+									</a>								
+																	
+							</c:otherwise>								
+							</c:choose>	
+						</c:when>
+						<c:otherwise>
+						
+							<a data-toggle="modal" href="#Modalbloqueada" >
+								<div class="profile-01b centered">								
+									<p>Atividade Bloqueada</p>
+								</div>
+							</a>
+						
+						</c:otherwise>
+						</c:choose>
+					</c:otherwise>
+					</c:choose>
+					
+				</c:otherwise>
+				</c:choose>
+				
+						<div class="centered">
+						<c:choose >
+						
+							<c:when test="${fase_randomica_acabou && !ativInscrito && !ativLotada}">
+								<h6>
+									<i class="fa fa-heart"  style="color: #9a62ce; font-size: 1.2em;"> O ${ativ.tag} precisa de vocÍ</i>
+								<br>${ativ.nome}</h6>
+							</c:when>
+							
+							<c:when test="${fase_randomica_acabou && posicaoAtiv > 0}">
+							<h6>
+							<i class="fa fa-hand-o-right"  style="color: #5373e7;font-size: 1.2em;">&nbsp&nbsp${posicaoAtiv}∫ na Fila de Espera</i>
+							<br>${ativ.nome}</h6>
+							</c:when>
+							
+							<c:when test="${fase_randomica_acabou && ativInscrito}">
+								<h6>
+									<i class="fa fa-thumbs-o-up"  style="color: #14c10e; font-size: 1.2em;">&nbsp&nbspEsperamos vocÍ l·</i>
+								<br>${ativ.nome}</h6>
+							</c:when>
+							
+							<c:otherwise>
+								<h6><i class="fa li_paperplane"></i><br>${ativ.nome}</h6>
+							</c:otherwise>	
+						</c:choose>
+						</div>
+					</div><!--/content-panel -->
+				</div><!--/col-md-4-->
+				
+				</c:forEach>
+				
+				<!-- Fim Botao HUB -->   
+                      	
+         <!-- Acaba aqui a logica chosse when dos botoens de participacao das atividades -->
+
+                   </div>
+                   
+                   <div id="menu1" class="tab-pane fade row mt" >
+                    
+         <!-- Comeca a logica chosse when dos botoens de participacao das atividades -->
+         
+				<!-- Inicio Botao HUB -->	
+				
+				 <c:forEach items="${AtividadesOngs}" var="ativ" >
+				 
+				<div class="col-lg-4 col-md-4 col-sm-4 mb">
+					<div class="content-panel pn">
+						<div class="col-xs-4 col-xs-offset-8">
+							<button class="btn btn-clear-g with-shadow" data-toggle="modal"  href="#Modal${ativ.tag}">INFO</button>
+						</div>
+						
+						<div id="profile-01" class="profile-${fn:toLowerCase(ativ.tag)}">
+								<br><h3 class="with-shadow">${ativ.tag}</h3>
+						</div>
+							
+				<c:choose>
+					<c:when test="${aberto || ativ.chamada_liberada}">
+						<div class="profile-01b centered" data-toggle="modal" href="#Modalfechada">									
+							<p>InscriÁıes Fechadas</p>
+						</div>
+					</c:when>
+				<c:otherwise>
+				
+					<c:choose>
+					
+						<c:when test="${voluntario.podeSeInscrever(ativ)}">						
+							<c:choose>
+								<c:when test="${fase_randomica_acabou && ativ.atividadeLotada()}">
+									<a href="inscrever?atividade=${ativ.id}" onclick="clickAndDisable(this);">									
+										<div class="profile-01l centered">									
+											<p>Atividade Lotada, entrar na Fila!</p>
+										</div>
+									</a>	
+						  		</c:when>
+						  <c:otherwise>							
+								<a href="inscrever?atividade=${ativ.id}" onclick="clickAndDisable(this);">
+										<div class="profile-01 centered">								
+											<p>Participar</p>
+										</div>
+									</a>										
+							</c:otherwise>								
+							</c:choose>			
+				  		</c:when>
+				  	<c:otherwise>
+						<c:choose>			
+						<c:when test="${voluntario.estaInscrito(ativ)}">
+							<c:choose>
+								<c:when test="${fase_randomica_acabou && ativ.atividadeLotada()}">
+									<a data-toggle="modal" href="#ModalCancelar" onclick="modalCancelar(${ativ.id});">									
+									<div class="profile-01c centered">									
+										<p>Sair da Atividade Lotada</p>
+									</div>
+								</a>	
+						  		</c:when>
+						  	<c:otherwise>
+						  	
+						  		<a data-toggle="modal" href="#ModalCancelar" onclick="modalCancelar(${voluntario.registroAtividade(ativ)});">									
 										<div class="profile-01c centered">									
 											<p>Cancelar ParticipaÁ„o</p>
 										</div>
@@ -299,23 +307,27 @@
 					
 						<div class="centered">
 						<c:choose >
-							<c:when test="${posicoes[ativ.ativid] > 0}">
+							<c:when test="${voluntario.posicaoFila(ativ) > 0}">
 							<h6>
-							<i class="fa fa-hand-o-right"  style="color: #5373e7;font-size: 1.2em;">&nbsp&nbsp${posicoes[ativ.ativid]}∫ na Fila de Espera</i>
+							<i class="fa fa-hand-o-right"  style="color: #5373e7;font-size: 1.2em;">&nbsp&nbsp${voluntario.posicaoFila(ativ)}∫ na Fila de Espera</i>
 							<br>${ativ.nome}</h6>
 							</c:when>
+							
+							<c:when test="${voluntario.estaInscrito(ativ) && fase_randomica_acabou}">
+								<h6>
+									<i class="fa fa-thumbs-o-up"  style="color: #14c10e; font-size: 1.2em;">&nbsp&nbspEsperamos vocÍ l·</i>
+								<br>${ativ.nome}</h6>
+							</c:when>
+							
+							<c:when test="${!ativ.atividadeLotada() && fase_randomica_acabou}">
+								<h6>
+									<i class="fa fa-heart"  style="color: #9a62ce; font-size: 1.2em;"> O ${ativ.tag} precisa de vocÍ</i>
+								<br>${ativ.nome}</h6>
+							</c:when>
+							
 							<c:otherwise>
-								<c:choose >
-									<c:when test="${ativAtual[ativ.ativid] == true && fase_randomica_acabou == true}">
-										<h6>
-									        <i class="fa fa-thumbs-o-up"  style="color: #14c10e; font-size: 1.2em;">&nbsp&nbspEsperamos vocÍ l·</i>
-									    <br>${ativ.nome}</h6>
-									</c:when>
-									<c:otherwise>
-										<h6><i class="fa li_paperplane"></i><br>${ativ.nome}</h6>
-									</c:otherwise>	
-								</c:choose>
-							</c:otherwise>
+								<h6><i class="fa li_paperplane"></i><br>${ativ.nome}</h6>
+							</c:otherwise>	
 						</c:choose>
 						</div>
 					</div><!--/content-panel -->
@@ -327,8 +339,8 @@
                       	
          <!-- Acaba aqui a logica chosse when dos botoens de participacao das atividades -->
 
-                    </div><!-- /row -->                    
-                    				
+                   </div>	
+                   </div>		
 					
 					
 					<div class="row">
@@ -338,37 +350,37 @@
                   		<div class="col-md-2 col-sm-2 col-md-offset-1 box0">
                   			<div class="box1">
 					  			<span class="li_heart"></span>
-					  			<h3>${maislacos.total_voluntarios}</h3>
+					  			<h3>${voluntario.maisLacos.total_voluntarios}</h3>
                   			</div>
-					  			<p>Hoje o LaÁos da Alegria conta com ${maislacos.total_voluntarios} lindos volunt·rios!</p>
+					  			<p>Hoje o LaÁos da Alegria conta com ${voluntario.maisLacos.total_voluntarios} lindos volunt·rios!</p>
                   		</div>
                   		<div class="col-md-2 col-sm-2 box0">
                   			<div class="box1">
 					  			<span class="li_star"></span>
-					  			<h3>${maislacos.atividade_participadas}</h3>
+					  			<h3>${voluntario.maisLacos.atividade_participadas}</h3>
                   			</div>
-					  			<p>Que incrÌvel vocÍ j· participou de ${maislacos.atividade_participadas} atividades!</p>
+					  			<p>Que incrÌvel vocÍ j· participou de ${voluntario.maisLacos.atividade_participadas} atividades!</p>
                   		</div>
                   		<div class="col-md-2 col-sm-2 box0">
                   			<div class="box1">
 					  			<span class="li_diamond"></span>
-					  			<h3>${maislacos.total_novatos}</h3>
+					  			<h3>${voluntario.maisLacos.total_novatos}</h3>
                   			</div>
-					  			<p>Nos temos ${maislacos.total_novatos} lindos novatos esperando para levar amor!</p>
+					  			<p>Nos temos ${voluntario.maisLacos.total_novatos} lindos novatos esperando para levar amor!</p>
                   		</div>
                   		<div class="col-md-2 col-sm-2 box0">
                   			<div class="box1">
 					  			<span class="li_fire"></span>
-					  			<h3>${maislacos.atividades_distintas}</h3>
+					  			<h3>${voluntario.maisLacos.atividades_distintas}</h3>
                   			</div>
-					  			<p>Ainda faltam ${maislacos.atividades_distintas} Atividades para vocÍ conhecer!</p>
+					  			<p>Ainda faltam ${voluntario.maisLacos.atividades_distintas} Atividades para vocÍ conhecer!</p>
                   		</div>
                   		<div class="col-md-2 col-sm-2 box0">
                   			<div class="box1">
 					  			<span class="li_megaphone"></span>
 					  			<h3>${maislacos.indicacoes}</h3>
                   			</div>
-					  			<p>Espalhando o amor! VocÍ indicou ${maislacos.indicacoes} amigos atÈ agora.</p>
+					  			<p>Espalhando o amor! VocÍ indicou ${voluntario.maisLacos.indicacoes} amigos atÈ agora.</p>
                   		</div>
                   	
                   	</div><!-- /row mt -->	
@@ -395,32 +407,7 @@
 		          </div>
 		          <!-- modal -->
 				  
-				   <!-- Modal -->
-					<div aria-hidden="true" aria-labelledby="myModalLabel" role="dialog" tabindex="-1" id="ModalFeedBack" class="modal fade">
-		              <div class="modal-dialog">
-		                  <div class="modal-content">
-		                      <div class="modal-header">
-		                          <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-		                          <h4 class="modal-title">Deixe Aqui seu Feedback</h4>
-		                      </div>
-		                      <form action="feedback"  method="post">
-		                      <div class="modal-body">
-		                          <p>Entre com o feedback abaixo. Depois È sÛ enviar</p>
-								<textarea rows="8" class="form-control placeholder-no-fix" name="feedback" required></textarea>								 
-		
-		                      </div>
-		                      <div class="modal-footer">
-		                          <button data-dismiss="modal" class="btn btn-default" type="button">Cancelar</button>
-		                          <button class="btn btn-theme" type="submit">Enviar</button>
-		         
-		                      </div>
-		                     </form>
-		                  </div>
-		              </div>
-		          </div>
-		          <!-- modal -->
-				  
-				  <c:forEach items="${Atividade}" var="ativ" >
+				  <c:forEach items="${atividades}" var="ativ" >
 				  
 				  <!-- Modal -->
 					<div aria-hidden="true" aria-labelledby="myModalLabel" role="dialog" tabindex="-1" id="Modal${ativ.tag}" class="modal fade">
@@ -456,7 +443,8 @@
 		                          <h4 class="modal-title centered">InscriÁıes Fechadas</h4>
 		                      </div> 
 		                      <div class="modal-body centered">
-		                          <p>InscriÁıes acontecem de <b>Segunda</b> ‡ <b>S·bado</b> ‡s 12h</p>		                       	
+		                          <p>InscriÁıes acontecem de <b>Segunda</b> ‡ <b>S·bado</b> ‡s 12h! </p>
+		                          <small style="color:red;">Caso esteja em pÈriodo de escriÁ„o entre em contato com o devido Coordenador da atividade, informando-o que a chamada da atividade anterior precisa ser realizada para liberaÁ„o das inscriÁıes!</small>		                       	
 		                      </div>
 		                       <div class="modal-footer">
 		                          <button data-dismiss="modal" class="btn btn-default" type="button">Fechar</button>
@@ -498,7 +486,7 @@
 		                      </div>
 		                      <form action="cancelar" method="post">
 		                      <div class="modal-footer">
-		                       <input hidden type="number" name="atividade" id="ativCancelar" value = "" >
+		                       <input  type="hidden" name="atividade" id="ativCancelar" value = "ativid" >
 		                          <button data-dismiss="modal" class="btn btn-default" type="button">Fechar</button>
 		                          <button class="btn btn-danger" type="submit">Confirmar Cancelamento</button>
 		                      </div>
@@ -507,6 +495,16 @@
 		              </div>
 		          </div>
 		          <!-- modal -->
+		          
+		          <c:if test="${voluntario.realizarFeedBack()}">
+		          	<%@ include file="feedbackNovato.jsp" %>
+		          </c:if>
+		          
+		          <c:if test="${voluntario.temDemanda()}">
+		          	<%@ include file="demandas.jsp" %>
+		          </c:if>
+		          
+		          
 					
 								
                   </div><!-- /col-lg-9 END SECTION MIDDLE -->
@@ -517,50 +515,13 @@
       *********************************************************************************************************************************************************** -->                  
                   
                   <div class="col-lg-3 ds">
-                  
-                  <c:if test="${serapoio[0] != 0}">
-                  
-						<c:choose>
-							<c:when test="${serapoio[1] == 1}">
-							
-								<h3>Apoio Ativo</h3>
-								
-								   <div class="desc box2 centered">
-                      				<div class="btn-group" >
-									  <button type="button" class="btn btn-success dropdown-toggle" data-toggle="dropdown">
-									    AÁıes Possiveis <span class="caret"></span>
-									  </button>
-									  <ul class="dropdown-menu" role="menu">
-									    <li><a href="desativarApoio">Desativar Apoio</a></li>
-									    <li><a href="#">Deixar de Ser Apoio</a></li>
-										
-									  </ul>
-									</div>						
-			                      </div> 
-											
-							</c:when>
-						<c:otherwise>								
-								<h3>Apoio Desativado</h3>	
-								
-								 <div class="desc box2 centered">
-                      				<div class="btn-group" >
-									  <button type="button" class="btn btn-theme04 dropdown-toggle" data-toggle="dropdown">
-									    AÁıes Possiveis <span class="caret"></span>
-									  </button>
-									  <ul class="dropdown-menu" role="menu">
-									    <li><a href="ativarApoio">Ativar Apoio</a></li>
-									    <li><a href="#">Deixar de Ser Apoio</a></li>
-
-										
-									  </ul>
-									</div>						
-			                      </div> 
-																				
-						</c:otherwise>								
-						</c:choose>                      
-                  
+                   <c:if test="${voluntario.acessoDiretorHosp() || voluntario.acessoCoordenador()}">
+                  	<h3>CÛdigo de Promoo de Novato</h3>               
+                      <div class="desc box2 centered">
+						<button type="button" class="btn btn-round btn-primary"><span class="fa fa-code"></span>&nbsp&nbspCdigo da Semana - <b><font size="3">${codigoSemana}</font></b></button>
+                      </div>
                   </c:if>
-
+                  
 						<h3>NotificaÁıes Importantes</h3>
                                         
                       <!-- First Action -->
@@ -571,7 +532,7 @@
 	                      		<span class="badge bg-theme0${feed.tipo}"><i class="fa fa-clock-o"></i></span>
 	                      	</div>
 	                      	<div class="details">   
-	                      		<p><muted>${feed.tempo}</muted><br/>                 		
+	                      		<p><muted>${feed.dt_cricao}</muted><br/>                 		
 	                      		   <a target="_blank"  href="${feed.link}">${feed.tag}</a> ${feed.mensagem} <br/>
 	                      		</p>
 	                      	</div>
@@ -604,7 +565,7 @@
       <footer class="site-footer">
           <div class="text-center">
               LaÁos da Alegria - 2016
-              <a href="area-voluntario#" class="go-top">
+              <a href="area-voluntario" class="go-top">
                   <i class="fa fa-angle-up"></i>
               </a>
           </div>
@@ -632,7 +593,23 @@
     <script src="assets/js/sparkline-chart.js"></script>    
 	<script src="assets/js/zabuto_calendar.js"></script>	
 	
-	<c:if test="${faltante==true}">
+	    <!--script for this page-->
+	<script src="http://code.jquery.com/ui/1.10.3/jquery-ui.js"></script>    
+    <script src="assets/js/tasks.js" type="text/javascript"></script>
+
+    <script>
+      jQuery(document).ready(function() {
+          TaskList.initTaskWidget();
+      });
+
+      $(function() {
+          $( "#sortable" ).sortable();
+          $( "#sortable" ).disableSelection();
+      });
+      
+     </script>
+	
+	<c:if test="${faltante}">
 		<script type="text/javascript">
 	        $(document).ready(function () {
 	        var unique_id = $.gritter.add({
@@ -653,7 +630,34 @@
 	        });
 		</script>
 	</c:if>
-		
+	
+	<script type="text/javascript">
+		// When ready...
+		window.addEventListener("load",function() {
+			// Set a timeout...
+			setTimeout(function(){
+				// Hide the address bar!
+				window.scrollTo(0, 1);
+			}, 0);
+		});
+	</script>	
+	
+	<c:if test="${voluntario.realizarFeedBack()}">
+	  	<%@ include file="feedbackJs.jsp" %>
+	</c:if>
+	
+	<script>
+	$( document ).ready(function() {
+		$('#ModalLembreteDem').modal('show');
+	});
+	</script>
+
+<script>
+	$( document ).ready(function() {
+		$('#ModalLembreteDem').modal('show');
+	});
+</script>
+
 	<script type="application/javascript">
         $(document).ready(function () {
             $("#date-popover").popover({html: true, trigger: "manual"});
@@ -670,7 +674,7 @@
                     return myNavFunction(this.id);
                 },
                 ajax: {
-                    url: "",
+                    url: "nothing",
                     modal: true
                 },
                

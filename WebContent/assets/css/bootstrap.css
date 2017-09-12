@@ -1408,7 +1408,7 @@ pre code {
 }
 @media (min-width: 1200px) {
   .container {
-    width: 1170px;
+    width: 1120px;
   }
 }
 .container-fluid {
@@ -5453,6 +5453,24 @@ button.close {
   border-bottom: 1px solid #e5e5e5;
 }
 .modal-header-t .close {
+  margin-top: -2px;
+}
+
+.modal-header-x {
+  min-height: 16.42857143px;
+  padding: 15px;
+  border-bottom: 1px solid #e5e5e5;
+}
+.modal-header-x .close {
+  margin-top: -2px;
+}
+
+.modal-header-b {
+  min-height: 16.42857143px;
+  padding: 15px;
+  border-bottom: 1px solid #e5e5e5;
+}
+.modal-header-b .close {
   margin-top: -2px;
 }
 

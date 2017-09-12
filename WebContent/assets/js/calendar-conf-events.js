@@ -32,7 +32,9 @@ var Script = function () {
     var d = date.getDate();
     var m = date.getMonth();
     var y = date.getFullYear();
-
+    
+    console.log(date.getMonth());
+    
     $('#calendar').fullCalendar({
         header: {
             left: 'prev,next today',
@@ -52,7 +54,7 @@ var Script = function () {
             // assign it the date that was reported
             copiedEventObject.start = date;
             copiedEventObject.allDay = allDay;
-
+           
             // render the event on the calendar
             // the last `true` argument determines if the event "sticks" (http://arshaw.com/fullcalendar/docs/event_rendering/renderEvent/)
             $('#calendar').fullCalendar('renderEvent', copiedEventObject, true);
@@ -67,7 +69,7 @@ var Script = function () {
         events: [
             {
                 title: 'All Day Event',
-                start: new Date(y, m, 1)
+                start: new Date(2017, 4, 1)            
             },
             {
                 title: 'Long Event',
@@ -87,14 +89,9 @@ var Script = function () {
                 allDay: false
             },
             {
-                title: 'Meeting',
-                start: new Date(y, m, d, 10, 30),
-                allDay: false
-            },
-            {
-                title: 'Lunch',
-                start: new Date(y, m, d, 12, 0),
-                end: new Date(y, m, d, 14, 0),
+                title: 'Evento Teste',
+                start: new Date(y, m, 17),
+                end: new Date(y, m, 18),
                 allDay: false
             },
             {

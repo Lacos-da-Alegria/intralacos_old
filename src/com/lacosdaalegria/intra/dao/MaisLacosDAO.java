@@ -48,14 +48,23 @@ public class MaisLacosDAO {
 			stmt.close();
 			rs.close();
 			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} 
 			
+		return maisLacos;
+	}
+	
+	  public void close() {
+		  
+		  try {
+			this.connection.close();
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		
-	
-		return maisLacos;
-	}
+		  
+	  }
 	
 }

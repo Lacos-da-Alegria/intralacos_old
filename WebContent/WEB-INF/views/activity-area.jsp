@@ -6,10 +6,11 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <meta charset="utf-8">
+    <meta charset="ISO-8859-1">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="Intranet do Grupo da Alegria">
     <meta name="author" content="LaÁos da Alegria">
+    <meta name="apple-mobile-web-app-capable" content="yes" />
 
     <title>LaÁos da Alegria</title>
 
@@ -42,40 +43,7 @@
       TOP BAR CONTENT & NOTIFICATIONS
       *********************************************************************************************************************************************************** -->
       <!--header start-->
-      <header class="header black-bg">
-              <div class="sidebar-toggle-box">
-                  <div class="fa fa-bars tooltips" data-placement="right" data-original-title="Menu"></div>
-              </div>
-            <!--logo start-->	
-            <a href="area-voluntario" class="logo"><b>¡ÅREA DO VOLUNT¡RIO</b></a>
-            <!--logo end-->
-            <div class="nav notify-row" id="top_menu">
-                <!--  notification start -->
-                <ul class="nav top-menu">
-                    <!-- settings start -->
-                    <li class="dropdown tooltips" data-placement="left" data-original-title="Indique Um Amigo">
-                        <a data-toggle="modal" class="dropdown-toggle" href="#myModal">
-                            <i class="fa li_megaphone" ></i>                            
-                        </a>
-                        					
-                    </li>
-                    <!-- settings end -->
-                    <!-- inbox dropdown start-->
-                    <li class="dropdown tooltips" data-placement="left" data-original-title="Deixe Seu Feedback">
-                        <a class="dropdown-toggle"  data-toggle="modal"  href="#ModalFeedBack">
-                            <i class="fa fa-envelope-o"></i>                            
-						</a>
-                    </li>
-                    <!-- inbox dropdown end -->
-                </ul>
-                <!--  notification end -->
-            </div>
-            <div class="top-menu">
-            	<ul class="nav pull-right top-menu">
-                    <li><a class="logout" href="logout">Logout</a></li>
-            	</ul>
-            </div>
-        </header>
+      <%@ include file="top_menu.jsp" %> 	
       <!--header end-->
       
       <!-- **********************************************************************************************************************************************************
@@ -85,105 +53,7 @@
       <aside>
           <div id="sidebar"  class="nav-collapse ">
               <!-- sidebar menu start-->
-              <ul class="sidebar-menu" id="nav-accordion">
-              
-              	  <p class="centered"><a href="profile"><img src="assets/img/ui-sam.jpg" class="img-circle" width="60"></a></p>
-              	  <h5 class="centered">${voluntario.nome}</h5>
-              	  	
-                  <li class="mt">
-                      <a href="area-voluntario">
-                          <i class="fa li_heart"></i>
-                          <span>¡Årea do Volunt·rio</span>
-                      </a>
-                  </li>
-				  
-				  <li class="sub-menu">
-                      <a href="profile">
-                          <i class="fa li_user"></i>
-                          <span>Minha Conta</span>
-                      </a>
-                  </li>
-
-                   <li class="sub-menu">
-                      <a href="javascript:;" >
-                          <i class="fa li_tag"></i>
-                          <span>InformaÁıes Importantes</span>
-                      </a>
-                       <ul class="sub">                
-                          <li><a  href="construcao">Volunt·rio Nota 10</a></li>
-                      </ul>
-                  </li>
-                  
-                  <li class="sub-menu">
-                      <a href="javascript:;" >
-                          <i class="fa fa-list-ol"></i>
-                          <span>Lista de Atividades</span>
-                      </a>
-                       <ul class="sub">
-                       <c:forEach items="${AtividadeAtivas}" var="ativ" >
-                         <li><a  href="listaAtividade?atividade=${ativ.ativid}">${ativ.tag}</a></li>
-                        </c:forEach>
-                      </ul>
-                  </li>
-                  
-				<c:if test="${(voluntario.acesso == 69) || (voluntario.acesso != 1)}">
-					
-                  <li class="sub-menu">
-                      <a class="active"  href="javascript:;" >
-                          <i class="fa fa-desktop"></i>
-                          <span>Painel da Atividade</span>
-                      </a>
-                      <ul class="sub">
-                      <c:forEach items="${todas_Ativs}" var="ativ" >
-                      <c:if test="${(voluntario.acesso == 69) || (voluntario.acesso == ativ.key + 1)}">
-                          <li><a  href="detalheAtividade?atividade=${ativ.key}">${ativ.value}</a></li>
-                       </c:if>
-					</c:forEach>
-                      </ul>
-                  </li>
-                  
-                 </c:if>
-                  <c:if test="${voluntario.acesso == 69}">
-                  <li class="sub-menu">
-                      <a href="javascript:;" >
-                          <i class="fa fa-cogs"></i>
-                          <span>Admin Page</span>
-                      </a>
-                      
-                      <ul class="sub">
-                      
-                          <li><a  href="promover">Promover Usuarios</a></li>
-                          <li><a  href="cadastrarNotif">Cadastrar Notificacao</a></li>
-						
-                      </ul>
-                      
-                  </li>
-                  </c:if>
-                  <li class="sub-menu">
-                      <a href="javascript:;" >
-                          <i class="fa li_news"></i>
-                          <span>Sobre</span>
-                      </a>
-                      <ul class="sub">
-                          <li><a  href="construcao">LaÁos da Alegria</a></li>
-                          <li><a  href="construcao">Trabalho Volunt·rio</a></li>
-                          <li><a  href="construcao">Como Posso Ajudar</a></li>
-                      </ul>
-                  </li>
-
-                  <li class="sub-menu">
-                      <a href="javascript:;" >
-                          <i class="fa li_phone"></i>
-                          <span>Contato</span>
-                      </a>
-                      <ul class="sub">
-                          <li><a  href="construcao">LaÁos Da Alegria</a></li>
-                          <li><a  href="construcao">Parceiros</a></li>
-					</ul>
-                  </li>
-                 
-
-              </ul>
+              	<%@ include file="menu.jsp" %>
               <!-- sidebar menu end-->
           </div>
       </aside>
@@ -199,7 +69,7 @@
               <div class="row">
                   <div class="col-lg-9">
 				  
-				  <h1 class= "centered">${titulo}</h1>
+				  <h1 class= "centered">Resumo da Atividade ${atividade.getTag()}</h1>
                   
                     <div class="row mt">
                       <div class="col-lg-4 col-md-4 col-sm-4 mb">
@@ -213,13 +83,12 @@
 						<div style="height:209px;line-height:3em;overflow:auto;padding:5px;">
 								
 							<div class="custom-check goleft">
-				             <table id="todo" class="table table-hover custom-check">
+				             <table id="" class="table table-hover custom-check">
 				              <tbody>
 				               
-				                	
-				                <!-- Fazer for each para volut·rios -->	
-				                	
-				                	<c:forEach items="${voluntarios}" var="voluntario" varStatus="loop">			
+				               <c:choose>
+				               	<c:when test="${!atividade.rodadaRandomica()}">
+				               		<c:forEach items="${fila.getLista_voluntarios()}" var="voluntario" varStatus="loop">			
 										 <tr>	
 										<td>				                      
 				                     	   <a>${loop.index+1}∫</a>
@@ -232,8 +101,12 @@
 				      					</td>
 				      					</tr>
 				      				</c:forEach>
-				               	
-				                
+				               	</c:when>
+				               	<c:otherwise>
+				               	 	<a style="margin-left:23%;">${fila.voluntariosEscritos()} volunt·rios escritos!</a>
+				               	</c:otherwise>
+				               </c:choose>
+				                	
 				              </tbody>
 				          </table>	
 						</div><!-- /table-responsive -->
@@ -249,7 +122,7 @@
 							<div class="weather-2-header">
 									<div class="row">
 										<div class="centered mt-2">	
-											<p><i class="fa li_star"></i>&nbsp&nbspLista de Apoios</p>
+											<p><i class="fa li_star"></i>&nbsp&nbspLista Equipe Atividade</p>
 										</div>
 										
 									</div>
@@ -258,12 +131,12 @@
 
 								
 							<div class="custom-check goleft">
-				             <table id="todo" class="table table-hover custom-check">
+				             <table id="" class="table table-hover custom-check">
 				              <tbody>
 				                
 				                <!-- Fazer for each para apoios -->
 				              
-				               <c:forEach items="${apoiosAtiv}" var="apoioAtiv" varStatus="loop">			
+				               <c:forEach items="${fila.getLista_apoios()}" var="apoioAtiv" varStatus="loop">			
 										 <tr>	
 										<td>				                      
 				                     	   <a>${loop.index+1}∫</a>
@@ -299,16 +172,23 @@
 
 								
 						<div class="custom-check goleft">
-				             <table id="todo" class="table table-hover custom-check">
+				             <table id="" class="table table-hover custom-check">
 				              <tbody>
 				             
 				              <!-- Fazer for each para novatos -->
-				                <tr>
-				           			<td>				 
-				                        <a>Controle Ainda N„o Implementado <i class="fa fa-heart"></i></a>
-				                        
-									</td>
-				                </tr>
+					 			<c:forEach items="${fila.getLista_novatos()}" var="novato" varStatus="loop">			
+										 <tr>	
+										<td>				                      
+				                     	   <a>${loop.index+1}∫</a>
+				      					</td>
+				      					<td>				                      
+				                     	   <a>${novato.nome}</a>
+				      					</td>
+				      					<td>				                      
+				                     	   <a>${novato.whatsapp}</a>
+				      					</td>
+				      					</tr>
+				      				</c:forEach> 
 				                 
 				              </tbody>
 				          </table>
@@ -420,7 +300,7 @@
 
 								
 						<div class="custom-check goleft">
-				             <table id="todo" class="table table-hover custom-check">
+				             <table class="table table-hover custom-check">
 				              <tbody>
 				              <!-- Fazer for each para N∫ de Visitas All Times Top 10 -->
 				               	<c:forEach items="${top10all}" var="top">
@@ -452,7 +332,7 @@
 
 								
 						<div class="custom-check goleft">
-				             <table id="todo" class="table table-hover custom-check">
+				             <table id="" class="table table-hover custom-check">
 				              <tbody>
 				               	
 				               	<!-- Fazer for each para N∫ de Visitas ⁄ltimos 3 Meses Top 10 -->
@@ -580,13 +460,36 @@
 		                      <div class="modal-body">
 		                          <p>Entre com o e-mail abaixo do Apoio que quer adicionar</p>
 		                          <input type="text" name="email" placeholder="E-mail" autocomplete="off" class="form-control placeholder-no-fix" required>
-								<input type="hidden" name="atividade" value="${ativid}" />
+								<input type="hidden" name="ativId" value="${atividade.id}" />
 		                      </div>
 		                      <div class="modal-footer">
 		                          <button data-dismiss="modal" class="btn btn-default" type="button">Cancelar</button>
 		                          <button class="btn btn-theme" type="submit">Adicionar</button>
 		                      </div>
 		                     </form>
+		                  </div>
+		              </div>
+		          </div>
+		          <!-- modal -->
+		          
+		          <!-- Modal -->
+					<div aria-hidden="true" aria-labelledby="myModalLabel" role="dialog" tabindex="-1" id="ModalRetirar" class="modal fade">
+		              <div class="modal-dialog">
+		                  <div class="modal-content">
+		                      <div class="modal-header-d">
+		                          <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+		                          <h4 class="modal-title centered">Retirada de Recurso Humano</h4>
+		                      </div>
+		                      <div class="modal-body centered">
+		                          <p>VocÍ Realmente quer <b>Retirar</b> esse Apoio?</p>		                       	
+		                      </div>
+		                      <form action="retirarApoio" method="post">
+		                      <div class="modal-footer">
+		                       <input hidden type="number" name="userId" id="retirarApoio" value = "apoioId" >
+		                          <button data-dismiss="modal" class="btn btn-default" type="button">Fechar</button>
+		                          <button class="btn btn-danger" type="submit">Confirmar Retirada</button>
+		                      </div>
+		                      </form>
 		                  </div>
 		              </div>
 		          </div>
@@ -598,18 +501,18 @@
 		                  <div class="modal-content">
 		                      <div class="modal-header">
 		                          <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-		                          <h4 class="modal-title">Chamada da Atividade</h4>
+		                          <h4 class="modal-title">Chamada da Atividade Volunt·rios</h4>
 		                      </div>
 		                      
 				            <c:choose>
 				            
-							<c:when test="${chamadaaberta == false}">
+							<c:when test="${!atividade.getChamada_liberada()}">
 							
 							<h3 class="centered">Chamada Fechada!</h3><br>
-							<h5 class="centered">Hor·rio da chamada È das 13h ‡s 20h do S·bado</h5>
+							<h5 class="centered">A chamada dever· ser realizada no hÛrario da atividade!</h5>
 												
 							</c:when>
-							
+							 
 						<c:otherwise>																				
 		                       
 		                  <form action="fazerChamada" method = "post">  
@@ -620,25 +523,25 @@
 								
 							<div class="custom-check goleft">
 				           
-				             <table id="todo" class="table table-hover custom-check">
+				             <table  class="table table-hover custom-check">
 				              <tbody>
 				              
 				              <!-- Fazer for each para a chamada-->
 				                
-				                <c:forEach items="${chamada}" var="voluntario">
+				                <c:forEach items="${fila.getChamadaVoluntarios()}" var="voluntario">
 				                
-				                <c:if test="${voluntario.status == 0}">
+				                <c:if test="${voluntario.registroAberto()}">
 				                
 				                <tr>
 				           			
 				           			<td>
-									    <div id="${voluntario.userid}c" style="display: block; color: #000; text-shadow: 1px 1px 1px #ccc; font-size: 1.2em;">
+									    <div id="${voluntario.id}c" style="display: block; color: #000; text-shadow: 1px 1px 1px #ccc; font-size: 1.2em;">
 									       <a>  <i class="fa fa-question"></i></a>
 									    </div>									    
-									    <div id="${voluntario.userid}a" style="display:none; color: #14c10e; text-shadow: 1px 1px 1px #ccc; font-size: 1.2em;">
+									    <div id="${voluntario.id}a" style="display:none; color: #14c10e; text-shadow: 1px 1px 1px #ccc; font-size: 1.2em;">
 									        <i class="fa fa-thumbs-o-up"></i>
 									    </div>
-									    <div id="${voluntario.userid}b" style="display:none; color: #f22e2e; text-shadow: 1px 1px 1px #ccc; font-size: 1.2em;">   
+									    <div id="${voluntario.id}b" style="display:none; color: #f22e2e; text-shadow: 1px 1px 1px #ccc; font-size: 1.2em;">   
 									       <i class="fa fa-thumbs-o-down"></i>
 							           	</div>	
 				           			</td>
@@ -649,18 +552,18 @@
 									
 										
 				           			<td>
-				           			<label><div class="btn btn-success btn-xs"><i class="fa fa-check"></i></div><input type="checkbox" onclick="javascript:yesnoCheck('${voluntario.userid}y', '${voluntario.userid}n', '${voluntario.userid}a', '${voluntario.userid}b', '${voluntario.userid}c');" name="foram" value="${voluntario.userid}" id="${voluntario.userid}y" hidden></label>
+				           			<label><div class="btn btn-success btn-xs"><i class="fa fa-check"></i></div><input type="checkbox" onclick="javascript:yesnoCheck('${voluntario.id}y', '${voluntario.id}n', '${voluntario.id}a', '${voluntario.id}b', '${voluntario.id}c');" name="foram" value="${voluntario.registroAtual().id}" id="${voluntario.id}y" hidden></label>
 				                     </td> 
 									
 									<td>				 
-									<label><div class="btn btn-danger btn-xs"><i class="fa fa-times"></i></div><input type="checkbox" onclick="javascript:noyesCheck('${voluntario.userid}y', '${voluntario.userid}n', '${voluntario.userid}a', '${voluntario.userid}b', '${voluntario.userid}c');" name="naoforam" value="${voluntario.userid}" id="${voluntario.userid}n" hidden></label>
+									<label><div class="btn btn-danger btn-xs"><i class="fa fa-times"></i></div><input type="checkbox" onclick="javascript:noyesCheck('${voluntario.id}y', '${voluntario.id}n', '${voluntario.id}a', '${voluntario.id}b', '${voluntario.id}c');" name="naoforam" value="${voluntario.registroAtual().id}" id="${voluntario.id}n" hidden></label>
 									</td>
 				                </tr>
 				                
 				                </c:if>
 				                
 				                </c:forEach>								
-								 
+								<input name="ativId" value="${atividade.id}" hidden>
 				              </tbody>
 				          </table> 
 				         	
@@ -692,21 +595,24 @@
 		                          <div style="height:465px;line-height:3em;overflow:auto;padding:5px;">
 								
 							<div class="custom-check goleft">
-				             <table id="todo" class="table table-hover custom-check">
+				             <table id="" class="table table-hover custom-check">
 				              <tbody>
 				              
-				              <!-- Fazer for each para a lista de todos os apoios da atividade-->
-				              <c:forEach items="${apoios}" var="apoio">			
+				              <!-- Fazer for each para a lista de s os apoios da atividade-->
+				              <c:forEach items="${atividade.listaApoios()}" var="apoio">			
 										 <tr>	
 										<td>				                      
-				                     	   <a>${apoio.nome}</a>
+				                     	   <a>${apoio.membro.nome}</a>
 				      					</td>
 				      					<td>				                      
-				                     	   <a>${apoio.whatsapp}</a>
+				                     	   <a>${apoio.membro.whatsapp}</a>
 				      					</td>
 				      					<td>				                      
-				                     	   <a>${apoio.regiao}</a>
+				                     	   <a>${apoio.membro.regiao.nome}</a>
 				      					</td>
+				      					<td>				                      
+				                     	   <button data-toggle="modal" href="#ModalRetirar" onclick="modalRetirar(${apoio.id});" class="btn btn-danger btn-xs" style="margin-left:10px;"><i class="fa fa-times "></i></button>
+				      					</td>				      					
 				      					</tr>
 				      				</c:forEach>			              							 
 								 
@@ -718,18 +624,19 @@
 		
 		                      </div>
 		                      <div class="modal-footer">
-		                      <h5 class = "goleft floater" >Total de ${fn:length(apoios)} Apoios</h5>
+		                      <h5 class = "goleft floater" >Total de ${fn:length(atividade.getMembros())} Apoios</h5>
 		                          <button data-dismiss="modal" class="btn btn-default" type="button">Fechar</button>		                          
 		                      </div>
 		                  </div>
 		              </div>
 		          </div>
 		          <!-- modal -->
+		          
 				  <!-- Modal -->
 					<div aria-hidden="true" aria-labelledby="myModalLabel" role="dialog" tabindex="-1" id="myModaDesativar" class="modal fade">
 		              <div class="modal-dialog">		           
 		                  <div class="modal-content">
-		                  <form action="statusAtividade?atividade=${ativid}&acao=0"  method="post">
+		                  <form action="statusAtividade?ativId=${atividade.id}&acao=0"  method="post">
 		                      <div class="modal-header">
 		                          <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
 		                          <h4 class="modal-title">Confirmar de DesativaÁ„o</h4>
@@ -754,7 +661,7 @@
 					<div aria-hidden="true" aria-labelledby="myModalLabel" role="dialog" tabindex="-1" id="myModaAtivar" class="modal fade">
 		              <div class="modal-dialog">		           
 		                  <div class="modal-content">
-		                  <form action="statusAtividade?atividade=${ativid}&acao=1"  method="post">
+		                  <form action="statusAtividade?ativId=${atividade.id}&acao=1"  method="post">
 		                      <div class="modal-header">
 		                          <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
 		                          <h4 class="modal-title">Confirmar de AtivaÁ„o</h4>
@@ -857,9 +764,8 @@
                               <div class="col-sm-10">
                                  <textarea rows="8" class="form-control placeholder-no-fix" name="descricao" required>${atividade.descricao}</textarea>
                               </div>
-                          </div>                               
-
-						<input type="hidden" name="ativid" value="${ativid}" />
+                          </div>
+                          <input type="hidden" name="ativId" value="${atividade.id}" />
 					</div>
 		                      <div class="modal-footer">
 		                          <button data-dismiss="modal" class="btn btn-default" type="button">Cancelar</button>
@@ -872,6 +778,95 @@
 		              </div>
 		          </div>
 		          <!-- modal -->
+		          
+		          <!-- Modal -->
+					<div aria-hidden="true" aria-labelledby="myModalLabel" role="dialog" tabindex="-1" id="modalChamadaNovato" class="modal fade">
+		              <div class="modal-dialog">
+		                  <div class="modal-content">
+		                      <div class="modal-header">
+		                          <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+		                          <h4 class="modal-title">Chamada da Atividade Novatos</h4>
+		                      </div>
+		                      
+				            <c:choose>
+				            
+							<c:when test="${!atividade.getChamada_liberada()}">
+							
+							<h3 class="centered">Chamada Fechada!</h3><br>
+							<h5 class="centered">A chamada dever· ser realizada no hÛrario da atividade!</h5>
+												
+							</c:when>
+							
+						<c:otherwise>																				
+		                       
+		                  <form action="fazerChamadaNovato" method = "post">  
+		                       
+		                   <div class="modal-body">
+		                       	
+							<div style="height:465px;line-height:3em;overflow:auto;padding:5px;">
+								
+							<div class="custom-check goleft">
+				           
+				             <table  class="table table-hover custom-check">
+				              <tbody>
+				              
+				              <!-- Fazer for each para a chamada-->
+				                
+				                <c:forEach items="${fila.getLista_novatos()}" var="novato">
+				                
+				                <c:if test="${novato.registroAberto()}">
+				                
+				                <tr>
+				           			
+				           			<td>
+									    <div id="${novato.id}c" style="display: block; color: #000; text-shadow: 1px 1px 1px #ccc; font-size: 1.2em;">
+									       <a>  <i class="fa fa-question"></i></a>
+									    </div>									    
+									    <div id="${novato.id}a" style="display:none; color: #14c10e; text-shadow: 1px 1px 1px #ccc; font-size: 1.2em;">
+									        <i class="fa fa-thumbs-o-up"></i>
+									    </div>
+									    <div id="${novato.id}b" style="display:none; color: #f22e2e; text-shadow: 1px 1px 1px #ccc; font-size: 1.2em;">   
+									       <i class="fa fa-thumbs-o-down"></i>
+							           	</div>	
+				           			</td>
+
+				                    <td> <a style="text-shadow: 1px 1px 1px #ccc; font-size: 1.2em;">${novato.nome}</a></td>
+									
+									<td><a style="text-shadow: 1px 1px 1px #ccc; font-size: 1.2em;">${novato.whatsapp}</a></td>
+									
+										
+				           			<td>
+				           			<label><div class="btn btn-success btn-xs"><i class="fa fa-check"></i></div><input type="checkbox" onclick="javascript:yesnoCheck('${novato.id}y', '${novato.id}n', '${novato.id}a', '${novato.id}b', '${novato.id}c');" name="foram" value="${novato.registroAtual().id}" id="${novato.id}y" hidden></label>
+				                     </td> 
+									<td>				 
+									<label><div class="btn btn-danger btn-xs"><i class="fa fa-times"></i></div><input type="checkbox" onclick="javascript:noyesCheck('${novato.id}y', '${novato.id}n', '${novato.id}a', '${novato.id}b', '${novato.id}c');" name="naoforam" value="${novato.registroAtual().id}" id="${novato.id}n" hidden></label>
+									</td>
+				                </tr>
+				                
+				                </c:if>
+				                
+				                </c:forEach>								
+								<input name="ativId" value="${atividade.id}" hidden>
+				              </tbody>
+				          </table> 
+				         	
+						</div><!-- /table-responsive -->
+						</div><!-- scrollbar -->
+		
+		                      </div>
+		                      <div class="modal-footer">
+		                          <button data-dismiss="modal" class="btn btn-default" type="button">Cancelar</button>		                        
+		                       <button class="btn btn-theme" type="submit">Enviar</button>
+		                      </div>
+		                     </form>
+		                     
+		                     </c:otherwise>								
+		                   </c:choose>	
+		                  </div>
+		              </div>
+		          </div>
+		          <!-- modal -->
+		          
 					
 								
                   </div><!-- /col-lg-9 END SECTION MIDDLE -->
@@ -883,13 +878,18 @@
                   
                   <div class="col-lg-3 ds">
                     <!--Inicio Side Bar-->
-						<h3>Volunt·rios da Atividade</h3>
+						<h3>Chamada da Atividade</h3>
                                         
                       <!-- First Action -->
-                      <div class="desc box2 centered">
-                      
-						<button type="button" class="btn btn-theme05 btn-primary" data-toggle="modal" href="#myModal4"><span class="li_like"></span>&nbsp&nbspFazer Chamada</button>
-                
+                      <div class="desc">
+                      	<div class="centered">
+	                      	<div class="btn-group ">
+							<button type="button" class="btn btn-info" data-toggle="modal" href="#myModal4"><span class="li_star"></span>&nbsp&nbspVolunt·rios</button>
+	                		</div>
+	                		<div class="btn-group ">
+	                		<button type="button" class="btn btn-theme03 btn-primary" data-toggle="modal" href="#modalChamadaNovato"><span class="li_heart"></span>&nbsp&nbspNovatos</button>
+	                		</div>
+                		</div>
                       </div>
 					  
 					  <h3>InformaÁıes da Atividade</h3>
@@ -1005,10 +1005,9 @@
 		
 	<script type="application/javascript">
 	
-	$('select[name^="dia"] option[value="<fmt:formatNumber type="number" 
-			pattern="#" value="${atividade.periodo / 10}" />"]').attr("selected","selected");
+	$('select[name^="dia"] option[value="${atividade.dia}" ').attr("selected","selected");
 	
-	$('select[name^="periodo"] option[value="${atividade.periodo % 10}"]').attr("selected","selected");
+	$('select[name^="periodo"] option[value="${atividade.periodo}"]').attr("selected","selected");
 	
         $(document).ready(function () {
             $("#date-popover").popover({html: true, trigger: "manual"});
@@ -1079,6 +1078,29 @@
 		}
 
     </script>
+    
+        <script type="text/javascript">
+    
+    function modalRetirar(apoioId) {
+        // altera as informaÁıes do modal cancelar  
+        $('#myModal5').modal('toggle');
+      	  document.getElementById("retirarApoio").value = apoioId;
+        
+      };
+      
+    
+    </script> 
+    
+    <script type="text/javascript">
+		// When ready...
+		window.addEventListener("load",function() {
+			// Set a timeout...
+			setTimeout(function(){
+				// Hide the address bar!
+				window.scrollTo(0, 1);
+			}, 0);
+		});
+	</script>
   
 
   </body>

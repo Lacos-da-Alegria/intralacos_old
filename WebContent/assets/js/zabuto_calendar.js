@@ -553,7 +553,7 @@ $.fn.zabuto_calendar_language = function (lang) {
     switch (lang.toLowerCase()) {
         case 'pt':
             return {
-                month_labels: ["Janeiro", "Fevereiro", "Março", "Abril", "Maio", "Junho", "Julho", "Augusto", "Setembro", "Outubro", "Novembro", "Dezembro"],
+                month_labels: ["Janeiro", "Fevereiro", "Mar&ccedil;o", "Abril", "Maio", "Junho", "Julho", "Augusto", "Setembro", "Outubro", "Novembro", "Dezembro"],
                 dow_labels: ["Seg", "Ter", "Qua", "Qui", "Sex", "Sab", "Dom"]
             };
             break;

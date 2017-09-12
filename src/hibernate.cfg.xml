@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-configuration SYSTEM "http://www.hibernate.org/dtd/hibernate-configuration-3.0.dtd">
+
+<hibernate-configuration>
+   <session-factory>
+       <property name="hibernate.dialect">org.hibernate.dialect.SQLServer2012Dialect</property>
+       <property name="hibernate.show_sql">true</property>
+       <property name="hibernate.connection.driver_class">net.sourceforge.jtds.jdbc.Driver</property> 
+       <property name="hibernate.connection.url">jdbc:jtds:sqlserver://localhost:1433/dev</property>
+       <property name="hibernate.connection.username">desenvol</property>
+       <property name="hibernate.connection.password">desenvol</property>
+       
+       <property name="connection.pool_size">60</property>
+       
+       <property name="hibernate.c3p0.min_size">5</property>
+	   <property name="hibernate.c3p0.max_size">80</property>
+	   <property name="hibernate.c3p0.timeout">300</property>
+	   <property name="hibernate.c3p0.max_statements">80</property>
+	   <property name="hibernate.c3p0.idle_test_period">3000</property>
+       
+       <!--Here we are mapping Pojo class not hbm-->
+     <mapping class="com.lacosdaalegria.intra.hibernate.model.AgendaAtividade"/>
+     <mapping class="com.lacosdaalegria.intra.hibernate.model.Atividade"/>
+     <mapping class="com.lacosdaalegria.intra.hibernate.model.Demanda"/>
+     <mapping class="com.lacosdaalegria.intra.hibernate.model.Diretoria"/>
+     <mapping class="com.lacosdaalegria.intra.hibernate.model.Equipe"/>
+     <mapping class="com.lacosdaalegria.intra.hibernate.model.FeedbackNovato"/>
+     <mapping class="com.lacosdaalegria.intra.hibernate.model.Instituicao"/>
+     <mapping class="com.lacosdaalegria.intra.hibernate.model.MembroAtividade"/>
+     <mapping class="com.lacosdaalegria.intra.hibernate.model.Nota"/>
+     <mapping class="com.lacosdaalegria.intra.hibernate.model.Notificacao"/>
+     <mapping class="com.lacosdaalegria.intra.hibernate.model.Polo"/>
+     <mapping class="com.lacosdaalegria.intra.hibernate.model.RegiaoAdministrativa"/>
+     <mapping class="com.lacosdaalegria.intra.hibernate.model.RegistroAtividade"/>
+     <mapping class="com.lacosdaalegria.intra.hibernate.model.Semana"/>
+     <mapping class="com.lacosdaalegria.intra.hibernate.model.Tag"/>
+     <mapping class="com.lacosdaalegria.intra.hibernate.model.Voluntario"/>
+     <mapping class="com.lacosdaalegria.intra.hibernate.model.ResetSenha"/>
+     <mapping class="com.lacosdaalegria.intra.hibernate.model.Ouvidoria"/>
+     <mapping class="com.lacosdaalegria.intra.hibernate.model.Feedback"/>
+     <mapping class="com.lacosdaalegria.intra.hibernate.model.Atendimento"/>
+     <mapping class="com.lacosdaalegria.intra.hibernate.model.Categoria"/>
+     
+    </session-factory>
+</hibernate-configuration>
